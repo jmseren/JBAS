@@ -1,0 +1,49 @@
+0 REM Calculator
+1 REM AUTHOR: JMSER
+2 REM JBasic 1.0
+
+10 REM Function Declarations
+11 LET ADD = 300
+12 LET SUB = 400
+13 LET MUL = 500
+14 LET DIV = 600
+
+20 REM Program Body
+30 PRINT "Enter first number: "
+40 INPUT A
+50 PRINT "Enter second number: "
+60 INPUT B
+70 PRINT "Enter operation: (add, sub, mul, div)"
+80 INPUT OP
+90 IF OP == "add"
+91 GOSUB ADD
+100 IF OP == "sub"
+101 GOSUB SUB
+110 IF OP == "mul"
+111 GOSUB MUL
+120 IF OP == "div"
+121 GOSUB DIV
+130 PRINT "Result: " + result
+140 PRINT "Calculate again? (y/n)"
+150 INPUT again
+160 IF again == "y"
+161 GOTO 30
+170 GOTO last
+
+
+200 REM Subroutines
+300 REM ADD
+301 LET result = A + B
+302 RETURN
+400 REM SUB
+401 LET result = A - B
+402 RETURN
+500 REM MUL
+501 LET result = A * B
+502 RETURN
+600 REM DIV
+601 LET result = A / B
+602 RETURN
+
+
+1000 REM End of Program

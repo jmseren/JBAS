@@ -1,0 +1,53 @@
+0 REM TIC-TAC-TOE Game
+2 REM AUTHOR: JMSER
+3 REM JBasic 1.0
+
+4 REM Function Declarations
+5 LET PRINT_CHOICES = 600
+
+10 PRINT "Welcome to TIC-TAC-TOE!"
+
+20 REM Game Start
+
+21 PRINT "Rock, Paper, or Scissors? (1/2/3)"
+30 INPUT p
+
+40 LET g = rnd_2 + 1
+
+50 GOSUB PRINT_CHOICES
+
+60 let r = p - g
+70 IF r == 0
+71 PRINT "It's a tie!"
+80 IF r == 1
+81 PRINT "You win!"
+90 IF r == neg_2
+91 PRINT "You win!"
+100 IF r == neg_1
+101 PRINT "You lose!"
+110 IF r == 2
+111 PRINT "You lose!"
+
+120 PRINT "Play again? (y/n)"
+130 INPUT a
+140 IF a == "y"
+141 GOTO 20
+150 GOTO last
+
+
+600 REM Print Choices
+610 IF p == 1
+611 PRINT "You chose Rock"
+620 IF p == 2
+621 PRINT "You chose Paper"
+630 IF p == 3
+631 PRINT "You chose Scissors"
+640 IF g == 1
+641 PRINT "Computer chose Rock"
+650 IF g == 2
+651 PRINT "Computer chose Paper"
+660 IF g == 3
+661 PRINT "Computer chose Scissors"
+670 RETURN
+
+1000 REM End of Program
