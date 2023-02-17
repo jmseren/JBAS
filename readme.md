@@ -212,6 +212,36 @@ Using the `GOSUB` command, you can jump to a line number and return to next inst
 130 PRINT "x = " + x
 ```
 
+Additionally, here is an example of a subroutine that simulates a nested subroutine:
+
+```BASIC
+0 REM Program to take an input, increment it by 1 and then multiply it by 2.
+10 LET x = 1
+20 REM Function Definitions
+21 LET func_incr_x = 100
+22 LET func_mult2_x = 200
+23 LET func_mult2_incr_x = 300
+30 REM Program Body
+40 GOSUB func_mult2_incr_x
+50 GOTO last
+100 REM func_incr_x
+101 LET x = x + 1
+110 RETURN
+200 REM func_mult2_x
+201 LET x = x * 2
+210 RETURN
+300 REM func_mult2_incr_x
+301 LET save_ret = ret
+302 GOSUB func_incr_x
+303 GOSUB func_mult2_x
+304 LET ret = save_ret
+305 RETURN
+310 REM End of Program
+320 PRINT "x = " + x
+```
+
+
+
 
 ## Example Programs
 
