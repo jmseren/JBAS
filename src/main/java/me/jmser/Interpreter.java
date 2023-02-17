@@ -3,14 +3,9 @@ package me.jmser;
 import java.util.*;
 import java.io.*;
 
-/**
- * Hello world!
- *
- */
 public class Interpreter 
 {
     private static VariableManager variableManager = VariableManager.getInstance();
-    private static ExpressionParser parser = ExpressionParser.getInstance();
 
     private static TreeMap<Integer, String> lines = new TreeMap<Integer, String>();
     public static int instructionPointer = -1;
