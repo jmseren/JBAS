@@ -105,6 +105,9 @@ public class Interpreter
                 break;
             case REM:
                 break;
+            case CLEAR:
+                lines.clear();
+                break;
             default:
                 System.out.println("Unknown command");
                 break;

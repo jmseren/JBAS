@@ -10,7 +10,7 @@ The following commands are supported:
 
 * `REM` - add a comment
 
-* `INPUT` - read a value from the console
+* `INPUT` - read a value from the console into a variable
 
 * `LET` - assign a value to a variable
 
@@ -23,6 +23,8 @@ The following commands are supported:
 * `IF` - conditionally execute the next line
 
 * `ELSE` - conditionally execute the next line (after an `IF`)
+
+* `CLEAR` - clear the program
 
 * `LIST` - list the program
 
