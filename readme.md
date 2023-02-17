@@ -179,7 +179,7 @@ Interpreter variables are special variables that are used by the interpreter to 
 Here is an example of the classic BASIC hello world program, but using interpreter variables:
 
 ```BASIC
-10 "Hello World!"
+10 PRINT "Hello World!"
 20 GOTO first
 ```
 
