@@ -17,7 +17,7 @@ public class CLI {
                 if(!interpreter.interpret(input)) break;
             }catch(Exception e){
                 // Better error handling will be added later
-                System.out.println("Unknown variable or command in: " + input);
+                System.out.println("Unknown variable or command in: " + input + " (" + e.getMessage() + ")");
             }
 
             // Prompt

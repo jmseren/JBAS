@@ -7,14 +7,16 @@ public class VariableManager {
     
     private static Hashtable<String, String> variables = new Hashtable<String, String>();
     
-    public static VariableManager instance = new VariableManager();
+    private static VariableManager instance;
 
     public static VariableManager getInstance(){
+        if(instance == null){
+            instance = new VariableManager();
+        }
         return instance;
     }
 
     private VariableManager(){
-        clear();
     }
 
     public void setVariable(String name, String value){

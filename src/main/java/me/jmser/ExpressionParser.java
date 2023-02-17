@@ -1,16 +1,27 @@
 package me.jmser;
 
 public class ExpressionParser {
-    private static ExpressionParser instance = new ExpressionParser();
+    private static ExpressionParser instance;
+    private static VariableManager variableManager = VariableManager.getInstance();
+
     private ExpressionParser(){};
    
     public static ExpressionParser getInstance(){
+        if(instance == null){
+            instance = new ExpressionParser();
+        }
         return instance;
     }
 
 
-   public String parse(String expression){
 
+    public String parse(String expression){
+
+        if(variableManager.getVariable(expression.trim()) != null){
+            String value = variableManager.getVariable(expression.trim());
+            value.substring(0, value.length() - 1);
+            return value;
+        }
 
         expression = "(" + expression + ")"; // Add parenthesis to the beginning and end of the expression
        

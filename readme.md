@@ -67,10 +67,11 @@ In the future, precedence may be added to the language.
 
 ## Variables
 
-Variables are declared by assigning a value to them. Currently, only integer values are supported. To assign a value to a variable, use the `LET` command:
+Variables are declared by assigning a value to them. Currently, only integer and string values are supported. To assign a value to a variable, use the `LET` command:
 
 ```BASIC
 LET x = 5
+LET y = "Hello World!"
 ```
 
 Additionally, variables can be assigned to the result of an expression:
@@ -87,6 +88,7 @@ LET x = 5
 LET x = 10
 LET x = x + 5
 ```
+
 
 Variables must start with a letter, and can contain letters, numbers, and underscores.
 
@@ -170,7 +172,7 @@ Here is an example of the classic BASIC hello world program, but using interpret
 
 ```BASIC
 10 "Hello World!"
-20 goto first
+20 GOTO first
 ```
 
 ### Flags
@@ -182,4 +184,3 @@ Flags are another kind of special variable. They are primarily used by the `IF` 
 * `FLAG_SKIP` - The `SKIP` flag is set to 1 when the next line should be skipped. This flag is also set to 1 when an `IF` statement evaluates to false.  Additionally, the `SKIP` flag is set to 1 when the `ELSE` command is executed and the `ELSE` flag is set to 1.
 
 * `FLAG_EXIT` - The `EXIT` flag is set to 1 when the `EXIT` command is executed. When the `EXIT` flag is set to 1, the program will exit without resetting the flags or variables. This can be useful for debugging.
-

@@ -80,7 +80,11 @@ public class Command {
             parts = s.split(" ", 2)[1].trim().split("=");
             this.args = new String[2];
             this.args[0] = parts[0].trim();
-            this.args[1] = (parser.parse(parts[1]));
+            if(parts[1].contains("\"")){
+                this.args[1] = parts[1].trim();
+            }else{
+                this.args[1] = (parser.parse(parts[1]));
+            }
         }else if(this.command == Commands.GOTO){
             parts = s.split(" ", 2);
             this.args = new String[1];
@@ -88,7 +92,7 @@ public class Command {
         }else if(this.command == Commands.IF){
             parts = s.split(" ", 2);
             this.args = new String[3]; // Expression, operator, Expression
-
+            
             if(parts[1].contains("==")){
                 this.args[0] = parser.parse(parts[1].split("==")[0]);
                 this.args[1] = "==";

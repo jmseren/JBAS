@@ -90,7 +90,11 @@ public class Interpreter
                 }
                 break;
             case INPUT:
-                variableManager.setVariable(c.args[0], System.console().readLine());
+                String inputString = System.console().readLine();
+                if(inputString.matches("[A-z]+")){
+                    inputString = "\"" + inputString + "\"";
+                }
+                variableManager.setVariable(c.args[0], inputString);
                 break;
             default:
                 System.out.println("Unknown command");
@@ -142,6 +146,6 @@ public class Interpreter
         return lines.size();
     }
 
-    
+
 
 }
