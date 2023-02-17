@@ -33,6 +33,8 @@ public class VariableManager {
 
     public void clear(){
         variables.clear();
+        setVariable("FLAG_ELSE", "0");
+        setVariable("FLAG_SKIP", "0");
     }
 
     

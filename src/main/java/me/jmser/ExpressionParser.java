@@ -12,12 +12,13 @@ public class ExpressionParser {
    public String parse(String expression){
 
 
-       expression = "(" + expression + ")"; // Add parenthesis to the beginning and end of the expression
-       // Remove all whitespace
+        expression = "(" + expression + ")"; // Add parenthesis to the beginning and end of the expression
+       
+        // Remove all whitespace
         String parseString = expression.replaceAll("\\s+", ""); 
         String[] splitString = parseString.split("(?=[-+*/()])|(?<=[-+*/()])");
         
-
+        // Tokenize the string
         Token[] tokens = new Token[splitString.length];
         for(int i = 0; i < splitString.length; i++){
             tokens[i] = new Token(splitString[i]);
@@ -28,7 +29,6 @@ public class ExpressionParser {
         ExpressionTree current = tree;
 
         for(int i = 0; i < tokens.length; i++){
-            // System.out.println("Adding: " + tokens[i] + " to the tree.");
             switch(tokens[i].type){
                 case LEFT_PARENTHESIS:
                     current = current.setLeft(new ExpressionTree());
@@ -37,9 +37,6 @@ public class ExpressionParser {
                     current = current.getParent();
                     break;
                 case NUMBER:
-                    current.setToken(tokens[i]);
-                    current = current.getParent();
-                    break;
                 case VARIABLE:
                     current.setToken(tokens[i]);
                     current = current.getParent();

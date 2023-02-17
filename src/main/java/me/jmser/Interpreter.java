@@ -15,6 +15,7 @@ public class Interpreter
     private static int instructionPointer = -1;
     
     private void setFlags(boolean expressionResult){
+        // Flags are used to make conditionals work
         variableManager.setVariable("FLAG_ELSE", !expressionResult ? "1" : "0");  
         variableManager.setVariable("FLAG_SKIP", !expressionResult ? "1" : "0");
     }
@@ -95,10 +96,8 @@ public class Interpreter
     }
 
     public void run(){
-        // Set flags
+        // Set flags and variables to default values
         variableManager.clear();
-        variableManager.setVariable("FLAG_ELSE", "0");
-        variableManager.setVariable("FLAG_SKIP", "0");
 
 
         while(instructionPointer <= lines.lastKey()){

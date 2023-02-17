@@ -1,6 +1,10 @@
 package me.jmser;
 
 public class ExpressionTree {
+    // Data structure for expression trees
+    // Used for evaluating expressions
+    // (modified binary tree)
+
     private Token token;
 
     int value;
