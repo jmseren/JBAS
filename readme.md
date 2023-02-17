@@ -8,11 +8,17 @@ The following commands are supported:
 
 * `PRINT` - print a value to the console
 
+* `REM` - add a comment
+
 * `INPUT` - read a value from the console
 
 * `LET` - assign a value to a variable
 
 * `GOTO` - jump to a line number
+
+* `GOSUB` - jump to a line and store the current line number
+
+* `RETURN` - return to the line number stored by the last `GOSUB` command
 
 * `IF` - conditionally execute the next line
 
@@ -168,6 +174,8 @@ Interpreter variables are special variables that are used by the interpreter to 
 
 * `count` - The number of lines in the program.
 
+* `ret` - The line number to return to after a `GOSUB` command.
+
 Here is an example of the classic BASIC hello world program, but using interpreter variables:
 
 ```BASIC
@@ -184,6 +192,25 @@ Flags are another kind of special variable. They are primarily used by the `IF` 
 * `FLAG_SKIP` - The `SKIP` flag is set to 1 when the next line should be skipped. This flag is also set to 1 when an `IF` statement evaluates to false.  Additionally, the `SKIP` flag is set to 1 when the `ELSE` command is executed and the `ELSE` flag is set to 1.
 
 * `FLAG_EXIT` - The `EXIT` flag is set to 1 when the `EXIT` command is executed. When the `EXIT` flag is set to 1, the program will exit without resetting the flags or variables. This can be useful for debugging.
+
+## Subroutines
+
+Using the `GOSUB` command, you can jump to a line number and return to next instruction when the `RETURN` command is executed. The `GOSUB` command takes a line number as its argument. The `RETURN` command does not take any arguments. Subroutines can not be nested natively, but can be simulated by using the `ret` interpreter variable. Here is an example of a subroutine that increments the `x` variable:
+
+```BASIC
+0 REM Program to demonstrate the use of subroutines as functions
+10 LET x = 1
+20 REM Function Definitions
+21 LET func_incr_x = 100
+30 REM Program Body
+40 GOSUB func_incr_x
+50 GOTO last
+100 REM func_incr_x
+101 LET x = x + 1
+110 RETURN
+120 REM End of Program
+130 PRINT "x = " + x
+```
 
 
 ## Example Programs

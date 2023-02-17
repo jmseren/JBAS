@@ -55,6 +55,13 @@ public class Interpreter
             case GOTO:
                 instructionPointer = Integer.parseInt(c.args[0]) - 1;
                 break;
+            case GOSUB:
+                variableManager.setVariable("ret", Integer.toString(instructionPointer));
+                instructionPointer = Integer.parseInt(c.args[0]) - 1;
+                break;
+            case RETURN:
+                instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
+                break;
             case IF:
                 switch(c.args[1]){
                     case "==":

@@ -85,7 +85,7 @@ public class Command {
             }else{
                 this.args[1] = (parser.parse(parts[1]));
             }
-        }else if(this.command == Commands.GOTO){
+        }else if(this.command == Commands.GOTO || this.command == Commands.GOSUB){
             parts = s.split(" ", 2);
             this.args = new String[1];
             this.args[0] = parser.parse(parts[1].replace("\\s+", ""));

@@ -1,7 +1,7 @@
 package me.jmser;
 
 public enum Commands {
-    PRINT, EXIT, EVAL, LET, LIST, RUN, LINE, GOTO, IF, ELSE, INPUT, REM;
+    PRINT, EXIT, EVAL, LET, LIST, RUN, LINE, GOTO, IF, ELSE, INPUT, REM, GOSUB, RETURN;
 
     public static Commands fromString(String s){
         s = s.toUpperCase();
@@ -29,6 +29,10 @@ public enum Commands {
                 return INPUT;
             case "REM":
                 return REM;
+            case "GOSUB":
+                return GOSUB;
+            case "RETURN":
+                return RETURN;
             
             default:
                 if(s.matches("[0-9]+.*")){
