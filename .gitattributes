@@ -1,2 +1,2 @@
 # Let *.jbas files use BASIC syntax highlighting
-*.jbas linguist-language=basic
+*.jbas linguist-language=BASIC
