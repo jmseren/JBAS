@@ -96,9 +96,12 @@ public class Interpreter
                 }
                 variableManager.setVariable(c.args[0], inputString);
                 break;
+            case REM:
+                break;
             default:
                 System.out.println("Unknown command");
                 break;
+            
         }   
         return true;
     }
