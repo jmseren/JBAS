@@ -246,8 +246,33 @@ Additionally, here is an example of a subroutine that simulates a nested subrout
 320 PRINT "x = " + x
 ```
 
+## Saving/Loading Programs
 
+Programs can be saved and loaded using theey `SAVE` and `LOAD` commands respectively. They both take a filename in the current directory as their argument. 
 
+### Example
+
+Let's write a program that asks the user for their name, and then print's out a greeting.
+
+```BASIC
+10 PRINT "We haven't met, what's your name?"
+20 INPUT name
+30 PRINT "Hello " + name + "! It's nice to meet you."
+```
+
+Now, save this program to a file called "greetings.jbas":
+``` 
+=> SAVE greetings.jbas
+```
+
+Later, we can load this program back into the interpreter:
+```
+=> LOAD greetings.jbas
+=> LIST
+10 PRINT "We haven't met, what's your name?"
+20 INPUT name
+30 PRINT "Hello " + name + "! It's nice to meet you."
+```
 
 ## Example Programs
 
