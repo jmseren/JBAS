@@ -10,6 +10,7 @@ public class CLI {
 
         // Inital prompt
         System.out.print("=> ");
+        
         String input = scanner.nextLine();
 
         while(true){

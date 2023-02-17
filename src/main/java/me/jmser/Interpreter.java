@@ -58,22 +58,22 @@ public class Interpreter
             case IF:
                 switch(c.args[1]){
                     case "==":
-                        setFlags(parser.parse(c.args[0]).equals(parser.parse(c.args[2])));
+                        setFlags((c.args[0]).equals((c.args[2])));
                         break;
                     case "!=":
-                        setFlags(!parser.parse(c.args[0]).equals(parser.parse(c.args[2])));
+                        setFlags(!(c.args[0]).equals((c.args[2])));
                         break;
                     case ">":
-                        setFlags(Integer.parseInt(parser.parse(c.args[0])) > Integer.parseInt(parser.parse(c.args[2])));
+                        setFlags(Integer.parseInt((c.args[0])) > Integer.parseInt((c.args[2])));
                         break;
                     case "<":
-                        setFlags(Integer.parseInt(parser.parse(c.args[0])) < Integer.parseInt(parser.parse(c.args[2])));
+                        setFlags(Integer.parseInt((c.args[0])) < Integer.parseInt((c.args[2])));
                         break;
                     case ">=":
-                        setFlags(Integer.parseInt(parser.parse(c.args[0])) >= Integer.parseInt(parser.parse(c.args[2])));
+                        setFlags(Integer.parseInt((c.args[0])) >= Integer.parseInt((c.args[2])));
                         break;
                     case "<=":
-                        setFlags(Integer.parseInt(parser.parse(c.args[0])) <= Integer.parseInt(parser.parse(c.args[2])));
+                        setFlags(Integer.parseInt((c.args[0])) <= Integer.parseInt((c.args[2])));
                         break;
                     default:
                         System.out.println("Unknown operator");

@@ -16,11 +16,14 @@ public class ExpressionParser {
 
 
     public String parse(String expression){
-
-        if(variableManager.getVariable(expression.trim()) != null){
+        if(expression.equals("")) return "";
+        if(variableManager.getVariable(expression.trim()) != null && variableManager.getVariable(expression.trim()).contains("\"")){
             String value = variableManager.getVariable(expression.trim());
-            value.substring(0, value.length() - 1);
+            value = value.substring(1, value.length() - 1);
             return value;
+        }else if(expression.contains("\"")){
+            expression = expression.trim();
+            return expression.substring(1, expression.length() - 1);
         }
 
         expression = "(" + expression + ")"; // Add parenthesis to the beginning and end of the expression

@@ -184,3 +184,33 @@ Flags are another kind of special variable. They are primarily used by the `IF` 
 * `FLAG_SKIP` - The `SKIP` flag is set to 1 when the next line should be skipped. This flag is also set to 1 when an `IF` statement evaluates to false.  Additionally, the `SKIP` flag is set to 1 when the `ELSE` command is executed and the `ELSE` flag is set to 1.
 
 * `FLAG_EXIT` - The `EXIT` flag is set to 1 when the `EXIT` command is executed. When the `EXIT` flag is set to 1, the program will exit without resetting the flags or variables. This can be useful for debugging.
+
+
+## Example Programs
+
+### Number Guessing Game
+
+```BASIC
+10 PRINT "Guessing Game!"
+20 LET n = rnd_100
+30 LET num = 1
+40 PRINT "Guess a number (0-100): "
+50 INPUT g
+60 IF g == n
+61 THEN 70
+62 ELSE
+63 GOTO 100
+70 PRINT "You got it in " + num + " tries! Play again?: (y/n)"
+80 INPUT a
+90 IF a == "y"
+91 GOTO first
+92 ELSE
+93 GOTO last
+100 IF g < n
+101 PRINT "Too low!"
+102 ELSE
+103 PRINT "Too high!"
+110 LET num = num + 1
+120 GOTO 40
+130 PRINT "Thanks for playing!"
+```
