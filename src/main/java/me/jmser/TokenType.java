@@ -6,6 +6,7 @@ public enum TokenType {
     MULTIPLY,
     DIVIDE,
     NUMBER,
+    VARIABLE,
     LEFT_PARENTHESIS,
     RIGHT_PARENTHESIS;
 
@@ -24,8 +25,11 @@ public enum TokenType {
             case ")":
                 return RIGHT_PARENTHESIS;
             default:
-                     
-                return NUMBER;
+                if(s.matches("[0-9]+")){
+                    return NUMBER;
+                } else {
+                    return VARIABLE;
+                }
         }
     }
 
@@ -45,6 +49,8 @@ public enum TokenType {
                 return ")";
             case NUMBER:
                 return "NUMBER";
+            case VARIABLE:
+                return "VARIABLE";
             default:
                 return "";
         }

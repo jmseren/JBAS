@@ -1,6 +1,8 @@
 package me.jmser;
 
 public class Token {
+    private static VariableManager variableManager = VariableManager.getInstance();
+    
     public TokenType type;
     public int value;
 
@@ -8,6 +10,8 @@ public class Token {
         this.type = TokenType.fromString(s);
         if(this.type == TokenType.NUMBER){
             this.value = Integer.parseInt(s);
+        }else if(this.type == TokenType.VARIABLE){
+            this.value = Integer.parseInt(variableManager.getVariable(s));
         }
     }
 

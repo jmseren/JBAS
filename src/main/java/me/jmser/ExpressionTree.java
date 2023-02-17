@@ -65,6 +65,11 @@ public class ExpressionTree {
 
 
     public int evaluate(){
+        if(this.token == null){
+            return this.left.evaluate();
+        }
+        
+
         switch(this.token.type){
             case ADD:
                 return this.left.evaluate() + this.right.evaluate();
@@ -75,6 +80,7 @@ public class ExpressionTree {
             case DIVIDE:
                 return this.left.evaluate() / this.right.evaluate();
             case NUMBER:
+            case VARIABLE:
                 return this.value;
             default:
                 return 0;
