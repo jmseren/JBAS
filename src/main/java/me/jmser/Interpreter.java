@@ -12,7 +12,7 @@ public class Interpreter
     private static ExpressionParser parser = ExpressionParser.getInstance();
 
     private static TreeMap<Integer, String> lines = new TreeMap<Integer, String>();
-    private static int instructionPointer = -1;
+    public static int instructionPointer = -1;
     
     private void setFlags(boolean expressionResult){
         // Flags are used to make conditionals work
@@ -64,17 +64,21 @@ public class Interpreter
                         setFlags(!parser.parse(c.args[0]).equals(parser.parse(c.args[2])));
                         break;
                     case ">":
-                        setFlags(parser.parse(c.args[0]).compareTo(parser.parse(c.args[2])) > 0);
+                        setFlags(Integer.parseInt(parser.parse(c.args[0])) > Integer.parseInt(parser.parse(c.args[2])));
                         break;
                     case "<":
-                        setFlags(parser.parse(c.args[0]).compareTo(parser.parse(c.args[2])) < 0);
+                        setFlags(Integer.parseInt(parser.parse(c.args[0])) < Integer.parseInt(parser.parse(c.args[2])));
                         break;
                     case ">=":
-                        setFlags(parser.parse(c.args[0]).compareTo(parser.parse(c.args[2])) >= 0);
+                        setFlags(Integer.parseInt(parser.parse(c.args[0])) >= Integer.parseInt(parser.parse(c.args[2])));
                         break;
                     case "<=":
-                        setFlags(parser.parse(c.args[0]).compareTo(parser.parse(c.args[2])) <= 0);
+                        setFlags(Integer.parseInt(parser.parse(c.args[0])) <= Integer.parseInt(parser.parse(c.args[2])));
                         break;
+                    default:
+                        System.out.println("Unknown operator");
+                        break;
+                        
                 }
                 break;
             case ELSE:
@@ -99,8 +103,8 @@ public class Interpreter
         // Set flags and variables to default values
         variableManager.clear();
 
-
         while(instructionPointer <= lines.lastKey()){
+            if(variableManager.getVariable("FLAG_EXIT").equals("1")) return; // Exit without resetting the flags/variables
             if(lines.containsKey(instructionPointer)){
                 if(variableManager.getVariable("FLAG_SKIP").equals("1")){
                     variableManager.setVariable("FLAG_SKIP", "0");
@@ -111,7 +115,33 @@ public class Interpreter
             instructionPointer++;
         }
 
-        instructionPointer = 0;
+        variableManager.clear();
     }
+
+    public static int findNextLine(){
+        int nextLine = lines.higherKey(Interpreter.instructionPointer);
+        if(nextLine == -1) return 0;
+        return nextLine;
+    }
+
+    public static int findPrevLine(){
+        int previousLine = lines.lowerKey(Interpreter.instructionPointer);
+        if(previousLine == -1) return 0;
+        return previousLine;
+    }
+
+    public static int findLastLine(){
+        return lines.lastKey();
+    }
+
+    public static int findFirstLine(){
+        return lines.firstKey();
+    }
+
+    public static int lineCount(){
+        return lines.size();
+    }
+
+    
 
 }

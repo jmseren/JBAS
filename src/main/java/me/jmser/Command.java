@@ -97,14 +97,6 @@ public class Command {
                 this.args[0] = parser.parse(parts[1].split("!=")[0]);
                 this.args[1] = "!=";
                 this.args[2] = parser.parse(parts[1].split("!=")[1]);
-            }else if(parts[1].contains("<")){
-                this.args[0] = parser.parse(parts[1].split("<")[0]);
-                this.args[1] = "<";
-                this.args[2] = parser.parse(parts[1].split("<")[1]);
-            }else if(parts[1].contains(">")){
-                this.args[0] = parser.parse(parts[1].split(">")[0]);
-                this.args[1] = ">";
-                this.args[2] = parser.parse(parts[1].split(">")[1]);
             }else if(parts[1].contains("<=")){
                 this.args[0] = parser.parse(parts[1].split("<=")[0]);
                 this.args[1] = "<=";
@@ -113,6 +105,14 @@ public class Command {
                 this.args[0] = parser.parse(parts[1].split(">=")[0]);
                 this.args[1] = ">=";
                 this.args[2] = parser.parse(parts[1].split(">=")[1]);
+            }else if(parts[1].contains("<")){
+                this.args[0] = parser.parse(parts[1].split("<")[0]);
+                this.args[1] = "<";
+                this.args[2] = parser.parse(parts[1].split("<")[1]);
+            }else if(parts[1].contains(">")){
+                this.args[0] = parser.parse(parts[1].split(">")[0]);
+                this.args[1] = ">";
+                this.args[2] = parser.parse(parts[1].split(">")[1]);
             }
         }else if(this.command == Commands.INPUT){
             parts = s.split(" ", 2);
