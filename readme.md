@@ -30,6 +30,10 @@ The following commands are supported:
 
 * `RUN` - run the program
 
+* `SAVE` - save the program to a specified file
+
+* `LOAD` - load a program from a specified file
+
 * `EXIT` - exit the CLI
 
 ## Expressions

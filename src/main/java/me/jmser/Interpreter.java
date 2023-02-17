@@ -1,6 +1,7 @@
 package me.jmser;
 
-import java.util.TreeMap;
+import java.util.*;
+import java.io.*;
 
 /**
  * Hello world!
@@ -107,6 +108,34 @@ public class Interpreter
                 break;
             case CLEAR:
                 lines.clear();
+                break;
+            case LOAD:
+                lines.clear();
+                variableManager.clear();
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(c.args[0]));
+                    String line;
+                    while((line = reader.readLine()) != null){
+                        if(!line.matches("[0-9]+ .*")) continue; // Skip lines that don't start with a number.
+                        String[] parts = line.split(" ", 2);
+                        lines.put(Integer.parseInt(parts[0]), parts[1]);
+                    }
+                    reader.close();
+                } catch (Exception e) {
+                    System.out.println("Error loading file: " + e.getMessage());
+                }
+                break;
+            case SAVE:
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(c.args[0]));
+                    for(Integer i : lines.keySet()){
+                        writer.write(i + " " + lines.get(i));
+                        writer.newLine();
+                    }
+                    writer.close();
+                } catch (Exception e) {
+                    System.out.println("Error saving file: " + e.getMessage());
+                }
                 break;
             default:
                 System.out.println("Unknown command");
