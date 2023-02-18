@@ -28,6 +28,9 @@ public class Interpreter
             case LET:
                 variableManager.setVariable(c.args[0], c.args[1]);
                 break;
+            case DIM:
+                variableManager.createArray(c.args[0], Integer.parseInt(c.args[1]));
+                break;
             case EVAL:
                 System.out.println(c.args[0]);
                 break;

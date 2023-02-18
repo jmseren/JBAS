@@ -14,6 +14,8 @@ The following commands are supported:
 
 * `LET` - assign a value to a variable
 
+* `DIM` - declare an array
+
 * `GOTO` - jump to a line number
 
 * `GOSUB` - jump to a line and store the current line number
@@ -101,8 +103,34 @@ LET x = 10
 LET x = x + 5
 ```
 
-
 Variables must start with a letter, and can contain letters, numbers, and underscores.
+
+### Arrays
+
+Arrays are declared by using the `DIM` command. The `DIM` command takes two arguments: the name of the array, and the size of the array. The size of the array must be a positive integer. The following example declares an array named `x` with a size of 10:
+
+```BASIC
+DIM x 10
+```
+
+Arrays are indexed starting at 0. The following example assigns the value 5 to the first element of the array `x`:
+
+```BASIC
+DIM x 10
+LET x_0 = 5
+```
+
+Arrays can accessed using a variable as the index:
+
+```BASIC
+DIM x 10
+LET i = 5
+LET x_i = 3
+PRINT x_5
+```
+
+3
+
 
 ## Control Flow
 

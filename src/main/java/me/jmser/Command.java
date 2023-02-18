@@ -129,6 +129,12 @@ public class Command {
                 this.args = new String[1];
                 this.args[0] = parts[1].replace("\\s+", "");   
                 break;
+            case DIM:
+                parts = s.replace("\\s+", " ").split(" ", 3);
+                this.args = new String[2];
+                this.args[0] = parts[1]; // Variable name
+                this.args[1] = parts[2]; // Array size
+                break;
             default:
                 this.args = new String[parts.length - 1];
                 for(int i = 1; i < parts.length; i++){

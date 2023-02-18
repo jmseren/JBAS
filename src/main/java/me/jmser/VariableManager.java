@@ -24,16 +24,42 @@ public class VariableManager {
             Interpreter.instructionPointer = Integer.parseInt(value);
             return;
         }
+        if(name.contains("_")){
+            String arrayName = name.substring(0, name.lastIndexOf("_"));
+            String index = name.substring(name.lastIndexOf("_") + 1);
+
+            if(variables.containsKey(name + "_0")){
+                // Array
+                try{
+                    index = parser.parse(index);
+                    if(variables.containsKey(arrayName + "_" + index)){
+                        variables.put(arrayName + "_" + index, value.trim());
+                        return;
+                    }
+                }catch(Exception e){
+                    // Do nothing
+                }
+                
+            }
+        }
 
         variables.put(name, value.trim());
+    }
+
+    public void createArray(String name, int size){
+        for(int i = 0; i < size; i++){
+            variables.put(name + "_" + i, "0");
+        }
     }
 
     public String getVariable(String name){
 
         // Special variables
         String specialArgument = "";
+        String arrayName = "";
         if(name.contains("_")){
             specialArgument = name.split("_")[1];
+            arrayName = name.substring(0, name.lastIndexOf("_"));
         }
 
         if(name.startsWith("rnd_")){
@@ -63,6 +89,15 @@ public class VariableManager {
             return Integer.toString(Interpreter.findLastLine());
         }else if(name.equals("count")){
             return Integer.toString(Interpreter.lineCount());
+        }else if(variables.containsKey(arrayName + "_0")){
+            // Array
+            String index = name.substring(name.lastIndexOf("_") + 1);
+            try{
+                index = parser.parse(index);
+                return variables.get(arrayName + "_" + index);
+            }catch(Exception e){
+                // Do nothing
+            }
         }
 
 
