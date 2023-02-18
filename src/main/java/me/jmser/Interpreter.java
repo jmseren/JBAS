@@ -151,7 +151,11 @@ public class Interpreter
             if(variableManager.getVariable("FLAG_EXIT").equals("1")) return; // Exit without resetting the flags/variables
             if(lines.containsKey(instructionPointer)){
                 if(variableManager.getVariable("FLAG_SKIP").equals("1")){
-                    variableManager.setVariable("FLAG_SKIP", "0");
+                    if(instructionPointer != lines.lastKey() && lines.get(findNextLine()).matches("IF.*")){
+                        variableManager.setVariable("FLAG_SKIP", "1");
+                    }else{
+                        variableManager.setVariable("FLAG_SKIP", "0");
+                    }
                 }else{
                     interpret(lines.get(instructionPointer));
                 }
