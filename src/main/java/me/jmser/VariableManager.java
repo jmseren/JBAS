@@ -28,7 +28,7 @@ public class VariableManager {
             String arrayName = name.substring(0, name.lastIndexOf("_"));
             String index = name.substring(name.lastIndexOf("_") + 1);
 
-            if(variables.containsKey(name + "_0")){
+            if(variables.containsKey(arrayName + "_0")){
                 // Array
                 try{
                     index = parser.parse(index);
