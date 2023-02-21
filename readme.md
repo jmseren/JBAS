@@ -229,7 +229,7 @@ Flags are another kind of special variable. They are primarily used by the `IF` 
 
 ## Subroutines
 
-Using the `GOSUB` command, you can jump to a line number and return to next instruction when the `RETURN` command is executed. The `GOSUB` command takes a line number as its argument. The `RETURN` command does not take any arguments. Subroutines can not be nested natively, but can be simulated by using the `ret` interpreter variable. Here is an example of a subroutine that increments the `x` variable:
+Using the `GOSUB` command, you can jump to a line number and return to next instruction when the `RETURN` command is executed. The `GOSUB` command takes a line number as its argument. The `RETURN` command does not take any arguments. Subroutines can also be nested. Here is an example of a subroutine that increments the `x` variable:
 
 ```BASIC
 0 REM Program to demonstrate the use of subroutines as functions
@@ -246,7 +246,7 @@ Using the `GOSUB` command, you can jump to a line number and return to next inst
 130 PRINT "x = " + x
 ```
 
-Additionally, here is an example of a subroutine that simulates a nested subroutine:
+Additionally, here is an example of a subroutine uses nested subroutines:
 
 ```BASIC
 0 REM Program to take an input, increment it by 1 and then multiply it by 2.
@@ -265,11 +265,9 @@ Additionally, here is an example of a subroutine that simulates a nested subrout
 201 LET x = x * 2
 210 RETURN
 300 REM func_mult2_incr_x
-301 LET save_ret = ret
-302 GOSUB func_incr_x
-303 GOSUB func_mult2_x
-304 LET ret = save_ret
-305 RETURN
+301 GOSUB func_incr_x
+302 GOSUB func_mult2_x
+303 RETURN
 310 REM End of Program
 320 PRINT "x = " + x
 ```
