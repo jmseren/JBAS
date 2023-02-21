@@ -66,7 +66,7 @@ public class Command {
                 }
                 if(inMath) {
                     current = current.trim();
-                    result += (parser.parse(current));
+                    result += (parser.parse(current.trim()));
                 }
 
                 this.args = new String[1];
@@ -80,6 +80,11 @@ public class Command {
                     this.args[1] = parts[1].trim();
                 }else{
                     this.args[1] = (parser.parse(parts[1]));
+                    try{ // This is hacky
+                        Integer.parseInt(this.args[1]);
+                    }catch(Exception e){
+                        this.args[1] = "\"" + this.args[1] + "\"";
+                    }
                 }
                 break;
             case GORET:

@@ -179,7 +179,7 @@ public class Interpreter
             instructionPointer = lines.higherKey(instructionPointer);
         }
 
-        variableManager.clear();
+        // variableManager.clear();
         variableManager.setVariable("FLAG_EXIT", "1");
     }
 
