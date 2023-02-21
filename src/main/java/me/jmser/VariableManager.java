@@ -79,7 +79,7 @@ public class VariableManager {
             specialArgument = name.substring(name.indexOf("[") + 1, name.lastIndexOf("]"));
             arrayName = name.substring(0, name.indexOf("["));
         }else if(name.contains("_")){
-            specialArgument = name.substring(name.lastIndexOf("_") + 1);
+            specialArgument = name.substring(name.indexOf("_") + 1);
         }
 
         if(name.startsWith("rnd_")){
