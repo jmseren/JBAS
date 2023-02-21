@@ -274,7 +274,7 @@ Additionally, here is an example of a subroutine uses nested subroutines:
 
 ## Saving/Loading Programs
 
-Programs can be saved and loaded using theey `SAVE` and `LOAD` commands respectively. They both take a filename in the current directory as their argument. 
+Programs can be saved and loaded using the `SAVE` and `LOAD` commands respectively. They both take a filename in the current directory as their argument. 
 
 ### Example
 
