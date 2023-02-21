@@ -1,11 +1,14 @@
 package me.jmser;
 
 import java.util.Hashtable;
+import java.util.Stack;
 
 public class VariableManager {
     private static ExpressionParser parser = ExpressionParser.getInstance();
     
     private static Hashtable<String, String> variables = new Hashtable<String, String>();
+
+    private static Hashtable<String, Stack<String>> variableStack = new Hashtable<String, Stack<String>>();
     
     private static VariableManager instance;
 
@@ -115,7 +118,25 @@ public class VariableManager {
         return Integer.parseInt(getVariable(name));
     }
 
+    public void pushVariable(String name){
+        if(!variableStack.containsKey(name)){
+            variableStack.put(name, new Stack<String>());
+        }
+        variableStack.get(name).push(getVariable(name));
+    }
 
+    public void popVariable(String name){
+        if(!variableStack.containsKey(name)){
+            variableStack.put(name, new Stack<String>());
+        }
+        setVariable(name, variableStack.get(name).pop());
+    }
 
+    public String pollVariable(String name){
+        if(!variableStack.containsKey(name)){
+            variableStack.put(name, new Stack<String>());
+        }
+        return variableStack.get(name).peek();
+    }
     
 }

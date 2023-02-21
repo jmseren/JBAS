@@ -56,9 +56,15 @@ public class Interpreter
                 break;
             case GOSUB:
                 variableManager.setVariable("ret", Integer.toString(instructionPointer));
+                variableManager.pushVariable("ret");
+                variableManager.pushVariable("FLAG_ELSE");
+                variableManager.pushVariable("FLAG_SKIP");
                 instructionPointer = Integer.parseInt(c.args[0]) - 1;
                 break;
             case RETURN:
+                variableManager.popVariable("ret");
+                variableManager.popVariable("FLAG_ELSE");
+                variableManager.popVariable("FLAG_SKIP");
                 instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
                 break;
             case IF:
@@ -93,6 +99,7 @@ public class Interpreter
                     variableManager.setVariable("FLAG_SKIP", "0");
                 }else{
                     variableManager.setVariable("FLAG_SKIP", "1");
+                    variableManager.setVariable("FLAG_ELSE", "0");
                 }
                 break;
             case INPUT:
@@ -147,20 +154,22 @@ public class Interpreter
         // Set flags and variables to default values
         variableManager.clear();
 
-        while(instructionPointer <= lines.lastKey()){
+        while(true){
             if(variableManager.getVariable("FLAG_EXIT").equals("1")) return; // Exit without resetting the flags/variables
             if(lines.containsKey(instructionPointer)){
                 if(variableManager.getVariable("FLAG_SKIP").equals("1")){
-                    if(instructionPointer != lines.lastKey() && lines.get(findNextLine()).matches("IF.*")){
+                    if(instructionPointer != lines.lastKey() && lines.get(instructionPointer).toUpperCase().matches("IF .*")){
                         variableManager.setVariable("FLAG_SKIP", "1");
                     }else{
                         variableManager.setVariable("FLAG_SKIP", "0");
                     }
                 }else{
                     interpret(lines.get(instructionPointer));
+                    
                 }
             }
-            instructionPointer++;
+            if(instructionPointer == lines.lastKey()) break;
+            instructionPointer = lines.higherKey(instructionPointer);
         }
 
         variableManager.clear();

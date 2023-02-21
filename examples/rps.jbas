@@ -1,11 +1,11 @@
-0 REM TIC-TAC-TOE Game
+0 REM Rock Paper Scissors Game
 2 REM AUTHOR: JMSER
 3 REM JBasic 1.0
 
 4 REM Function Declarations
 5 LET PRINT_CHOICES = 600
 
-10 PRINT "Welcome to TIC-TAC-TOE!"
+10 PRINT "Welcome to RPS!"
 
 20 REM Game Start
 
