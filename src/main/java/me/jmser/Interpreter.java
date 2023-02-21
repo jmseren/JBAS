@@ -57,6 +57,7 @@ public class Interpreter
                 instructionPointer = 0;
                 run();
                 break;
+            case GORET:
             case GOTO:
                 instructionPointer = Integer.parseInt(c.args[0]) - 1;
                 break;

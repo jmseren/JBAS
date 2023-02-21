@@ -82,6 +82,7 @@ public class Command {
                     this.args[1] = (parser.parse(parts[1]));
                 }
                 break;
+            case GORET:
             case GOTO:
             case GOSUB:
                 parts = s.split(" ", 2);

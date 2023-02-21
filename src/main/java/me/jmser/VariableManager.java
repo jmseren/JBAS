@@ -51,8 +51,8 @@ public class VariableManager {
             String index = name.substring(name.indexOf("[") + 1, name.lastIndexOf("]"));
             try{
                 index = parser.parse(index);
-                if(variables.containsKey(arrayName + "_" + index)){
-                    variables.put(arrayName + "_" + index, value.trim());
+                if(variables.containsKey(arrayName + "[" + index + "]")){
+                    variables.put(arrayName + "[" + index + "]" , value.trim());
                     return;
                 }
             }catch(Exception e){

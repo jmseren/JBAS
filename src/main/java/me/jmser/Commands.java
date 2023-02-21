@@ -1,7 +1,7 @@
 package me.jmser;
 
 public enum Commands {
-    PRINT, EXIT, EVAL, LET, LIST, RUN, LINE, GOTO, IF, ELSE, INPUT, REM, GOSUB, RETURN, CLEAR, LOAD, SAVE, DIM;
+    PRINT, EXIT, EVAL, LET, LIST, RUN, LINE, GOTO, IF, ELSE, INPUT, REM, GOSUB, RETURN, CLEAR, LOAD, SAVE, DIM, GORET;
 
     public static Commands fromString(String s){
         s = s.toUpperCase();
@@ -41,6 +41,8 @@ public enum Commands {
                 return SAVE;
             case "DIM":
                 return DIM;
+            case "GORET":
+                return GORET;
                 
             
             default:
