@@ -113,11 +113,11 @@ Arrays are declared by using the `DIM` command. The `DIM` command takes two argu
 DIM x 10
 ```
 
-Arrays are indexed starting at 0. The following example assigns the value 5 to the first element of the array `x`:
+Arrays are indexed starting at 0, and are accessed using square brackets. The following example assigns the value 5 to the first element of the array `x`:
 
 ```BASIC
 DIM x 10
-LET x_0 = 5
+LET x[0] = 5
 ```
 
 Arrays can accessed using a variable as the index:
@@ -125,8 +125,8 @@ Arrays can accessed using a variable as the index:
 ```BASIC
 DIM x 10
 LET i = 5
-LET x_i = 3
-PRINT x_5
+LET x[i] = 3
+PRINT x[5]
 ```
 
 3
