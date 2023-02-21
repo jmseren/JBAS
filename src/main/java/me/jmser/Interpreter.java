@@ -16,6 +16,10 @@ public class Interpreter
         variableManager.setVariable("FLAG_SKIP", !expressionResult ? "1" : "0");
     }
 
+    public Interpreter(){
+        variableManager.setVariable("FLAG_EXIT", "1");
+    }
+
     public boolean interpret(String input){
         Command c = new Command(input);
         switch(c.command){
@@ -35,7 +39,9 @@ public class Interpreter
                 System.out.println(c.args[0]);
                 break;
             case EXIT:
-                return false;
+                if(variableManager.getVariable("FLAG_EXIT").equals("1")) return false;
+                variableManager.setVariable("FLAG_EXIT", "1");
+                break;
             case LIST:
                 for(Integer i : lines.keySet()){
                     System.out.println(i + " " + lines.get(i));
@@ -155,7 +161,7 @@ public class Interpreter
         variableManager.clear();
 
         while(true){
-            if(variableManager.getVariable("FLAG_EXIT").equals("1")) return; // Exit without resetting the flags/variables
+            if(variableManager.getVariable("FLAG_EXIT").equals("1")) break;
             if(lines.containsKey(instructionPointer)){
                 if(variableManager.getVariable("FLAG_SKIP").equals("1")){
                     if(instructionPointer != lines.lastKey() && lines.get(instructionPointer).toUpperCase().matches("IF .*")){
@@ -173,6 +179,7 @@ public class Interpreter
         }
 
         variableManager.clear();
+        variableManager.setVariable("FLAG_EXIT", "1");
     }
 
     public static int findNextLine(){

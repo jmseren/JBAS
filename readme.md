@@ -36,7 +36,7 @@ The following commands are supported:
 
 * `LOAD` - load a program from a specified file
 
-* `EXIT` - exit the CLI
+* `EXIT` - exit the CLI or program
 
 ## Expressions
 Expressions are strictly evaluated from left to right, and require parentheses for more than two operands. The following operators are supported:
@@ -225,7 +225,7 @@ Flags are another kind of special variable. They are primarily used by the `IF` 
 
 * `FLAG_SKIP` - The `SKIP` flag is set to 1 when the next line should be skipped. This flag is also set to 1 when an `IF` statement evaluates to false.  Additionally, the `SKIP` flag is set to 1 when the `ELSE` command is executed and the `ELSE` flag is set to 1.
 
-* `FLAG_EXIT` - The `EXIT` flag is set to 1 when the `EXIT` command is executed. When the `EXIT` flag is set to 1, the program will exit without resetting the flags or variables. This can be useful for debugging.
+* `FLAG_EXIT` - The `EXIT` flag is set to 1 when the `EXIT` command is executed. When the `EXIT` flag is set to 1, either via the `EXIT` command or setting it manually, the program will exit. In program mode, FLAG_EXIT is set to 1 when the `EXIT` command is executed. In interactive mode, FLAG_EXIT is initially set to 1, and is set to 0 when the `RUN` command is executed.
 
 ## Subroutines
 
