@@ -1,0 +1,230 @@
+0 REM A randomly generated RPG written in JBasic
+1 REM Author: JMSER
+2 REM JBasic 1.0
+
+10 REM Function Declarations (Beginning at 1000, separated by 100's)
+11 LET randomize_room = 1000
+12 LET describe_room = 1100
+13 LET move = 1200
+14 LET new_room = 1300
+15 LET open_chest = 1400
+16 LET stats = 1500
+17 LET generate_enemy = 1600
+18 LET cant_move = 1700
+19 LET fight = 1800
+20 LET cant_fight = 1750
+21 LET won_battle = 2000
+22 LET lost = 2100
+23 LET level_up = 2200
+24 LET help = 2300
+
+
+
+30 REM Global(ish) Variables
+31 LET player_health = 15
+32 LET player_attack = 5
+33 LET player_experience = 0
+34 LET player_level = 0 
+35 DIM doors 4
+36 LET chest = 0
+37 LET enemy = 0
+38 LET enemy_health = 0
+39 LET enemy_attack = 0
+40 LET enemy_name = 0
+41 DIM enemy_names 8
+42 LET enemy_names[0] = "Goblin"
+43 LET enemy_names[1] = "Orc"
+44 LET enemy_names[2] = "Troll"
+45 LET enemy_names[3] = "Dragon"
+46 LET enemy_names[4] = "Giant"
+47 LET enemy_names[5] = "Golem"
+48 LET enemy_names[6] = "Skeleton"
+49 LET enemy_names[7] = "Zombie"
+50 LET rooms = 0
+51 LET enemies_defeated = 0
+
+
+
+100 REM Game Start
+110 PRINT "Welcome to the dungeons, adventurer!"
+120 GOSUB new_room
+140 PRINT "What would you like to do?"
+150 INPUT action
+160 IF action == "move"
+170 GOSUB move
+180 IF action == "look"
+190 GOSUB describe_room
+200 IF action == "open"
+210 IF chest == 1
+220 GOSUB open_chest
+230 ELSE
+240 IF action == "open"
+250 PRINT "There is no chest here."
+260 IF action == "stats"
+270 GOSUB stats
+280 IF action == "quit"
+290 EXIT
+300 IF action == "fight"
+310 GOSUB fight
+320 IF action == "help"
+330 GOSUB help
+340 GOTO 140
+
+
+
+1000 REM randomize_room
+1010 LET i = 0
+1020 LET doors[i] = rnd_2
+1030 LET i = i + 1
+1040 IF i < 4
+1050 GOTO 1020
+1070 LET chest = rnd_2
+1080 LET enemy = rnd_2
+1084 REM Guarantee an open door
+1085 LET doors[rnd_4] = 1
+1090 GOSUB generate_enemy
+1095 RETURN
+
+1100 REM describe_room
+1110 IF doors[0] == 1
+1111 PRINT "There is a door to the north."
+1120 IF doors[1] == 1
+1121 PRINT "There is a door to the south."
+1130 IF doors[2] == 1
+1131 PRINT "There is a door to the east."
+1140 IF doors[3] == 1
+1141 PRINT "There is a door to the west."
+1150 IF chest == 1
+1151 PRINT "There is a chest in the corner."
+1160 IF enemy == 1
+1161 PRINT "There is an enemy blocking your path!"
+1170 RETURN
+
+1200 REM move
+1201 IF enemy == 1
+1202 GORET cant_move
+1210 PRINT "Which direction would you like to move?"
+1220 INPUT direction
+1230 IF direction == "north"
+1231 IF doors[0] == 1
+1232 GOSUB new_room
+1233 ELSE
+1234 IF direction == "north"
+1235 PRINT "There is no door there."
+1240 IF direction == "south"
+1241 IF doors[1] == 1
+1242 GOSUB new_room
+1243 ELSE
+1244 IF direction == "south"
+1245 PRINT "There is no door there."
+1250 IF direction == "east"
+1251 IF doors[2] == 1
+1252 GOSUB new_room
+1253 ELSE
+1254 IF direction == "east"
+1255 PRINT "There is no door there."
+1260 IF direction == "west"
+1261 IF doors[3] == 1
+1262 GOSUB new_room
+1263 ELSE
+1264 IF direction == "west"
+1265 PRINT "There is no door there."
+1280 RETURN
+
+1300 REM new_room
+1310 GOSUB randomize_room
+1320 GOSUB describe_room
+1330 LET rooms = rooms + 1
+1340 RETURN
+
+1400 REM open_chest
+1410 LET chest = 0
+1420 LET contents = rnd_2
+1430 IF contents == 1
+1431 LET player_health = player_health + 5
+1440 IF contents == 1
+1441 PRINT "You found a health potion! (+5 health) "
+1450 IF contents == 0
+1451 LET player_attack = player_attack + 1
+1460 IF contents == 0
+1461 PRINT "You found a sword! (+1 attack) "
+1470 RETURN
+
+1500 REM stats
+1510 PRINT "Health: " + player_health
+1520 PRINT "Attack: " + player_attack
+1530 PRINT "Experience: " + player_experience
+1540 PRINT "Level: " + player_level
+1550 RETURN
+
+1600 REM generate_enemy
+1610 LET enemy_name = enemy_names[rnd_8]
+1620 LET enemy_health = rnd_10 + ((player_level * 2) + 5)
+1630 LET enemy_attack = rnd_5 + ((player_level * 2) + 2)
+1640 RETURN
+
+1700 REM cant_move
+1710 PRINT "You can't move, there's an enemy here!"
+1720 RETURN
+1750 REM cant_fight
+1760 PRINT "You can't fight an enemy that doesn't exist!"
+1770 RETURN
+
+1800 REM fight
+1810 IF enemy == 0
+1811 GORET cant_fight
+1820 PRINT "Your Health: " + player_health + "     " + enemy_name + "'s health: " + enemy_health
+1830 PRINT "Heavy or Light attack?: "
+1840 INPUT attack_strength
+1850 IF attack_strength == "heavy"
+1851 LET enemy_health = enemy_health - (rnd_player_attack + rnd_player_attack)
+1852 ELSE
+1853 LET enemy_health = enemy_health - (rnd_player_attack + (player_attack / 2))
+1860 IF enemy_health <= 0
+1861 GORET won_battle
+1870 IF attack_strength == "heavy"
+1871 LET player_health = player_health - (rnd_enemy_attack + rnd_enemy_attack)
+1872 ELSE
+1873 LET player_health = player_health - (rnd_enemy_attack + (rnd_enemy_attack / 2))
+1880 IF player_health <= 0
+1890 GOTO lost
+1900 PRINT ""
+1901 PRINT ""
+1902 PRINT ""
+1903 PRINT ""
+1910 GOTO 1820
+
+2000 REM won_battle
+2010 LET enemy = 0
+2020 LET enemies_defeated = enemies_defeated + 1
+2030 LET player_experience = player_experience + (rnd_10 + ((player_level * 2) + 5))
+2040 IF player_experience > (player_experience * player_level) / 2
+2050 GOSUB level_up
+2060 PRINT "You defeated the " + enemy_name + "!"
+2070 RETURN
+
+2100 REM lost
+2110 PRINT "Sorry, you died!"
+2120 PRINT "You made it through " + rooms + " rooms, and defeated " + enemies_defeated + " enemies!"
+2130 PRINT "Your final level: " + player_level
+2140 GOTO last
+
+2200 REM level_up
+2210 LET player_experience = 0
+2220 LET player_level = player_level + 1
+2230 LET player_health = player_health + 5
+2240 LET player_attack = player_attack + 1
+2250 PRINT "You leveled up!"
+2260 RETURN
+
+2300 REM HELP
+2310 PRINT "move - move to a new room"
+2320 PRINT "look - look around the room"
+2330 PRINT "fight - fight an enemy in the room"
+2340 PRINT "open - open a chest"
+2350 PRINT "stats - view your health, attack, and level"
+2360 PRINT "quit - leave the game"
+2370 RETURN
+
+
+5000 REM EOP
