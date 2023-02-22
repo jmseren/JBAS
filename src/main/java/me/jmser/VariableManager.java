@@ -27,24 +27,7 @@ public class VariableManager {
             Interpreter.instructionPointer = Integer.parseInt(value);
             return;
         }
-        // if(name.contains("_")){
-        //     String arrayName = name.substring(0, name.lastIndexOf("_"));
-        //     String index = name.substring(name.lastIndexOf("_") + 1);
-
-        //     if(variables.contains)){
-        //         // Array
-        //         try{
-        //             index = parser.parse(index);
-        //             if(variables.containsKey(arrayName + "_" + index)){
-        //                 variables.put(arrayName + "_" + index, value.trim());
-        //                 return;
-        //             }
-        //         }catch(Exception e){
-        //             // Do nothing
-        //         }
-                
-        //     }
-        // }
+        
         if(name.matches(".*\\[.*\\]")){
             // Array
             String arrayName = name.substring(0, name.indexOf("["));

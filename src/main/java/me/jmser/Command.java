@@ -141,6 +141,10 @@ public class Command {
                 this.args[0] = parts[1]; // Variable name
                 this.args[1] = parts[2]; // Array size
                 break;
+            case UNKNOWN:
+                this.args = new String[1];
+                this.args[0] = s;
+                break;
             default:
                 this.args = new String[parts.length - 1];
                 for(int i = 1; i < parts.length; i++){

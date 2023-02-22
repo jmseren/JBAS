@@ -19,6 +19,7 @@ public class ExpressionParser {
         if(expression.equals("")) return "";
         if(variableManager.getVariable(expression.trim()) != null && variableManager.getVariable(expression.trim()).contains("\"")){
             String value = variableManager.getVariable(expression.trim());
+            if(value.equals("")) return "";
             value = value.substring(1, value.length() - 1);
             return value;
         }else if(expression.contains("\"")){

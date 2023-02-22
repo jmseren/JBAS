@@ -11,7 +11,11 @@ public class Token {
         if(this.type == TokenType.NUMBER){
             this.value = Integer.parseInt(s);
         }else if(this.type == TokenType.VARIABLE){
-            this.value = Integer.parseInt(variableManager.getVariable(s));
+            if(variableManager.getVariable(s).equals("")){
+            }else{
+                this.value = Integer.parseInt(variableManager.getVariable(s));
+
+            }
         }
     }
 

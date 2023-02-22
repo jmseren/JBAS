@@ -21,6 +21,7 @@ public class Interpreter
     }
 
     public boolean interpret(String input){
+        if(input.trim().equals("")) return true;
         Command c = new Command(input);
         switch(c.command){
             case PRINT:
@@ -111,9 +112,7 @@ public class Interpreter
                 break;
             case INPUT:
                 String inputString = System.console().readLine();
-                if(inputString.matches("[A-z]+")){
-                    inputString = "\"" + inputString + "\"";
-                }
+                inputString = "\"" + inputString + "\"";
                 variableManager.setVariable(c.args[0], inputString);
                 break;
             case REM:
@@ -150,7 +149,7 @@ public class Interpreter
                 }
                 break;
             default:
-                System.out.println("Unknown command");
+                System.out.println("Unknown command or variable: " + c.args[0]);
                 break;
             
         }   
