@@ -142,7 +142,17 @@ public class Screen extends PApplet {
     }
 
     public void printStr(String str){
+
         String line = lines.get(cursorPosition[1]);
+        String[] ls = str.split("\n", -1);
+        if(ls.length > 1){
+            for(int i = 0; i < ls.length - 1; i++){
+                printStr(ls[i]);
+                nextLine();
+            }
+            printStr(ls[ls.length - 1]);
+            return;
+        }
         line = line.substring(0, cursorPosition[0]) + str + line.substring(cursorPosition[0], line.length());
         lines.set(cursorPosition[1], line);
         cursorPosition[0] += str.length();
