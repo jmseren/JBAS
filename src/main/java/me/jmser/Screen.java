@@ -24,6 +24,12 @@ public class Screen extends PApplet {
 
     public void tab(int n){
         cursorPosition[0] = n;
+        
+        if(cursorPosition[0] > lines.get(cursorPosition[1]).length()){
+            for(int i = lines.get(cursorPosition[1]).length(); i < cursorPosition[0]; i++){
+                lines.set(cursorPosition[1], lines.get(cursorPosition[1]) + " ");
+            }
+        }
     }
 
     public Screen(GUI jbasic){

@@ -145,6 +145,10 @@ public class Command {
                 this.args = new String[1];
                 this.args[0] = s;
                 break;
+            case TAB:
+                this.args = new String[1];
+                this.args[0] = parser.parse(s.split(" ", 2)[1]);
+                break;
             default:
                 this.args = new String[parts.length - 1];
                 for(int i = 1; i < parts.length; i++){

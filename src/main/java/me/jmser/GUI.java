@@ -65,8 +65,6 @@ public class GUI implements JBasicInterface {
 
     @Override
     public void run(){
-        // Interpreter interpreter = new Interpreter();
-        // interpreter.hook(this);
         window.stroke(255);
         window.fill(255);
         while(true){
@@ -85,6 +83,8 @@ public class GUI implements JBasicInterface {
 
             line = "";
         }
+
+        System.exit(0);
 
     }
 

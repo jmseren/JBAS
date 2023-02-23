@@ -153,6 +153,9 @@ public class Interpreter
                     System.out.println("Error saving file: " + e.getMessage());
                 }
                 break;
+            case TAB:
+                iface.tab(Integer.parseInt(c.args[0]));
+                break;
             default:
                 System.out.println("Unknown command or variable: " + c.args[0]);
                 break;
