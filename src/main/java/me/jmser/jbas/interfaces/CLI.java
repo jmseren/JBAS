@@ -35,7 +35,6 @@ public class CLI implements JBasicInterface {
         Interpreter interpreter = new Interpreter();
         interpreter.hook(this);
 
-        System.out.println("JBasic 1.0 (c) 2023 JMSER\n\n");
         Scanner scanner = new Scanner(System.in);
 
         // Inital prompt

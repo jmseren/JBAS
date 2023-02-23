@@ -23,6 +23,7 @@ public class Interpreter
 
     public void hook(JBasicInterface i){
         this.iface = i;
+        iface.println("\nJBasic 1.1 (c) 2023 JMSER\n\n");
     }
 
     public Interpreter(){
