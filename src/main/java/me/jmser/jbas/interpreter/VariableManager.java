@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.interpreter;
 
 import java.util.Hashtable;
 import java.util.Stack;

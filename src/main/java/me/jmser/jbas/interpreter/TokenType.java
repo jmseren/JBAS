@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.interpreter;
 
 public enum TokenType {
     ADD,

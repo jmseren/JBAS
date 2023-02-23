@@ -1,6 +1,9 @@
-package me.jmser;
+package me.jmser.jbas.commands;
+
+import me.jmser.jbas.interpreter.ExpressionParser;
 
 public class Command {
+
     public Commands command;
     public String[] args;
 
@@ -144,6 +147,10 @@ public class Command {
             case UNKNOWN:
                 this.args = new String[1];
                 this.args[0] = s;
+                break;
+            case TAB:
+                this.args = new String[1];
+                this.args[0] = parser.parse(s.split(" ", 2)[1]);
                 break;
             default:
                 this.args = new String[parts.length - 1];

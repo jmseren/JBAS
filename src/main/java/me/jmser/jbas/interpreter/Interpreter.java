@@ -1,6 +1,10 @@
-package me.jmser;
+package me.jmser.jbas.interpreter;
 
 import java.util.*;
+
+import me.jmser.jbas.commands.Command;
+import me.jmser.jbas.interfaces.JBasicInterface;
+
 import java.io.*;
 
 public class Interpreter 
@@ -9,11 +13,17 @@ public class Interpreter
 
     private static TreeMap<Integer, String> lines = new TreeMap<Integer, String>();
     public static int instructionPointer = -1;
+    private JBasicInterface iface = null;
     
     private void setFlags(boolean expressionResult){
         // Flags are used to make conditionals work
         variableManager.setVariable("FLAG_ELSE", !expressionResult ? "1" : "0");  
         variableManager.setVariable("FLAG_SKIP", !expressionResult ? "1" : "0");
+    }
+
+    public void hook(JBasicInterface i){
+        this.iface = i;
+        iface.println("\nJBasic 1.1 (c) 2023 JMSER\n\n");
     }
 
     public Interpreter(){
@@ -26,9 +36,9 @@ public class Interpreter
         switch(c.command){
             case PRINT:
                 for(String arg : c.args){
-                    System.out.print(arg + " ");
+                    iface.print(arg + " ");
                 }
-                System.out.println();
+                iface.println();
                 break;
             case LET:
                 variableManager.setVariable(c.args[0], c.args[1]);
@@ -45,7 +55,7 @@ public class Interpreter
                 break;
             case LIST:
                 for(Integer i : lines.keySet()){
-                    System.out.println(i + " " + lines.get(i));
+                    iface.println(i + " " + lines.get(i));
                 }
                 break;
             case LINE:
@@ -111,7 +121,7 @@ public class Interpreter
                 }
                 break;
             case INPUT:
-                String inputString = System.console().readLine();
+                String inputString = iface.getLine();
                 inputString = "\"" + inputString + "\"";
                 variableManager.setVariable(c.args[0], inputString);
                 break;
@@ -133,7 +143,7 @@ public class Interpreter
                     }
                     reader.close();
                 } catch (Exception e) {
-                    System.out.println("Error loading file: " + e.getMessage());
+                    iface.println("Error loading file: " + e.getMessage());
                 }
                 break;
             case SAVE:
@@ -145,11 +155,14 @@ public class Interpreter
                     }
                     writer.close();
                 } catch (Exception e) {
-                    System.out.println("Error saving file: " + e.getMessage());
+                    iface.println("Error saving file: " + e.getMessage());
                 }
                 break;
+            case TAB:
+                iface.tab(Integer.parseInt(c.args[0]));
+                break;
             default:
-                System.out.println("Unknown command or variable: " + c.args[0]);
+                iface.println("Unknown command or variable: " + c.args[0]);
                 break;
             
         }   
