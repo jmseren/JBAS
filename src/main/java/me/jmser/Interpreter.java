@@ -9,11 +9,16 @@ public class Interpreter
 
     private static TreeMap<Integer, String> lines = new TreeMap<Integer, String>();
     public static int instructionPointer = -1;
+    private JBasicInterface iface = null;
     
     private void setFlags(boolean expressionResult){
         // Flags are used to make conditionals work
         variableManager.setVariable("FLAG_ELSE", !expressionResult ? "1" : "0");  
         variableManager.setVariable("FLAG_SKIP", !expressionResult ? "1" : "0");
+    }
+
+    public void hook(JBasicInterface i){
+        this.iface = i;
     }
 
     public Interpreter(){
@@ -26,9 +31,9 @@ public class Interpreter
         switch(c.command){
             case PRINT:
                 for(String arg : c.args){
-                    System.out.print(arg + " ");
+                    iface.print(arg + " ");
                 }
-                System.out.println();
+                iface.println();
                 break;
             case LET:
                 variableManager.setVariable(c.args[0], c.args[1]);
@@ -45,7 +50,7 @@ public class Interpreter
                 break;
             case LIST:
                 for(Integer i : lines.keySet()){
-                    System.out.println(i + " " + lines.get(i));
+                    iface.println(i + " " + lines.get(i));
                 }
                 break;
             case LINE:
@@ -111,7 +116,7 @@ public class Interpreter
                 }
                 break;
             case INPUT:
-                String inputString = System.console().readLine();
+                String inputString = iface.getLine();
                 inputString = "\"" + inputString + "\"";
                 variableManager.setVariable(c.args[0], inputString);
                 break;

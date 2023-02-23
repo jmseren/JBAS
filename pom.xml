@@ -12,8 +12,20 @@
   <!-- FIXME change it to the project's website -->
   <url>https://jmser.me/</url>
 
-
-
+  <repositories>
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.processing/core -->
+    <dependency>
+        <groupId>com.github.micycle1</groupId>
+        <artifactId>processing-core-4</artifactId>
+        <version>4.0b6c</version>
+    </dependency>
+  </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
@@ -67,7 +79,7 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.6.0</version>
           <configuration>
-            <mainClass>me.jmser.CLI</mainClass>
+            <mainClass>me.jmser.JBas</mainClass>
           </configuration>
         </plugin>
       </plugins>
