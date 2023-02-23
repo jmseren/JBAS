@@ -75,10 +75,10 @@ public class GUI implements JBasicInterface {
                     break;
             } catch (Exception e) {
                 // Better error handling will be added later
-                System.out.print("Unknown variable or command in: " + line);
+                window.printStr("Unknown variable or command in: " + line);
                 if (Interpreter.instructionPointer >= 0)
-                    System.out.print("\t\tAround Line: " + Interpreter.instructionPointer);
-                System.out.print("\n");
+                    window.printStr("\t\tAround Line: " + Interpreter.instructionPointer);
+                window.printStr("\n");
             }
 
             line = "";

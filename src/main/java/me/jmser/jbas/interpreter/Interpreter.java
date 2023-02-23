@@ -143,7 +143,7 @@ public class Interpreter
                     }
                     reader.close();
                 } catch (Exception e) {
-                    System.out.println("Error loading file: " + e.getMessage());
+                    iface.println("Error loading file: " + e.getMessage());
                 }
                 break;
             case SAVE:
@@ -155,14 +155,14 @@ public class Interpreter
                     }
                     writer.close();
                 } catch (Exception e) {
-                    System.out.println("Error saving file: " + e.getMessage());
+                    iface.println("Error saving file: " + e.getMessage());
                 }
                 break;
             case TAB:
                 iface.tab(Integer.parseInt(c.args[0]));
                 break;
             default:
-                System.out.println("Unknown command or variable: " + c.args[0]);
+                iface.println("Unknown command or variable: " + c.args[0]);
                 break;
             
         }   
