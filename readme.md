@@ -30,6 +30,8 @@ The following commands are supported:
 
 * `PRINT` - print a value to the console
 
+* `TAB` - move the cursor to a specified column
+
 * `REM` - add a comment
 
 * `INPUT` - read a value from the console into a variable
