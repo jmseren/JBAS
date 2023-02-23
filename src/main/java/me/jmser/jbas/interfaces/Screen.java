@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.interfaces;
 
 import java.util.ArrayList;
 

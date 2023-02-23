@@ -79,7 +79,7 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.6.0</version>
           <configuration>
-            <mainClass>me.jmser.JBas</mainClass>
+            <mainClass>me.jmser.jbas.JBas</mainClass>
           </configuration>
         </plugin>
       </plugins>

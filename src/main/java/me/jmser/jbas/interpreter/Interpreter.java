@@ -1,6 +1,10 @@
-package me.jmser;
+package me.jmser.jbas.interpreter;
 
 import java.util.*;
+
+import me.jmser.jbas.commands.Command;
+import me.jmser.jbas.interfaces.JBasicInterface;
+
 import java.io.*;
 
 public class Interpreter 

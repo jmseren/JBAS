@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.interpreter;
 
 public class ExpressionTree {
     // Data structure for expression trees

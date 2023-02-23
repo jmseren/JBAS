@@ -1,6 +1,6 @@
-package me.jmser;
+package me.jmser.jbas.interfaces;
 
-import processing.core.*;
+import me.jmser.jbas.interpreter.Interpreter;
 
 public class GUI implements JBasicInterface {
     Screen window;

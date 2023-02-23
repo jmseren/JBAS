@@ -1,6 +1,9 @@
-package me.jmser;
+package me.jmser.jbas.commands;
+
+import me.jmser.jbas.interpreter.ExpressionParser;
 
 public class Command {
+
     public Commands command;
     public String[] args;
 

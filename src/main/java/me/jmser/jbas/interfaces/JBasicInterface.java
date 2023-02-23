@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.interfaces;
 
 public interface JBasicInterface {
     public void print(String output);

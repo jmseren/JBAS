@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.commands;
 
 public enum Commands {
     PRINT, EXIT, EVAL, LET, LIST, RUN, LINE, GOTO, IF, ELSE, INPUT, REM, GOSUB, RETURN, CLEAR, LOAD, SAVE, DIM, GORET, UNKNOWN, TAB;

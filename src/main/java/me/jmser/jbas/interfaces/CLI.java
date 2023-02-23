@@ -1,4 +1,6 @@
-package me.jmser;
+package me.jmser.jbas.interfaces;
+
+import me.jmser.jbas.interpreter.Interpreter;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package me.jmser;
+package me.jmser.jbas.interpreter;
 
 public class ExpressionParser {
     private static ExpressionParser instance;
