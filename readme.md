@@ -316,7 +316,7 @@ By using the `POKE` command, you can draw graphics to the screen. The `POKE` com
 
 Pixels are placed on top of the screen, such that the text is underneath the graphics. The `CLS` command clears the screen of both text and graphics. If you want to clear a single pixel, you can set its color to -1. 
 
-For a list of color, see the C64 Color Chart: [https://www.c64-wiki.com/wiki/Color\_Chart](https://www.c64-wiki.com/wiki/Color_Chart)
+For a list of colors, see the C64 Color Chart: [https://www.c64-wiki.com/wiki/Color\_Chart](https://www.c64-wiki.com/wiki/Color)
 
 ## Subroutines
 
