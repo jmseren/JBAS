@@ -4,6 +4,22 @@ JBasic is a Java implementation of a BASIC programming dialect. It remains a wor
 
 Included are two interfaces, one command line and one GUI. Both interfaces are fully functional, and can be used to run the same programs. The GUI interface is more user friendly, and is recommended for beginners. Additionally, the GUI interface will be able to display colored output in the future.
 
+## Table of Contents
+
+* [Compiling](#compiling)
+* [Commands](#commands)
+* [Expressions](#expressions)
+* [Variables](#variables)
+* [Control Flow](#control-flow)
+* [Special Variables](#special-variables)
+* [Input and Output](#input-and-output)
+* [Subroutines](#subroutines)
+* [Saving and Loading](#saving-and-loading)
+* [Examples](#example-programs)
+
+
+
+
 ## Compiling
 
 To compile the project, run the following command:
