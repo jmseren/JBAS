@@ -29,13 +29,13 @@ mvn clean compile assembly:single
 This will create a jar file in the `target` directory. To run the program, run the following command:
 
 ```BASH
-java -jar target/jbasic-[version].jar
+java -jar target/jbas-[version].jar
 ```
 
 To run the program with the GUI interface, run the following command:
 
 ```BASH
-java -jar target/jbasic-[version].jar --gui
+java -jar target/jbas-[version].jar --gui
 ```
 
 ## Commands
