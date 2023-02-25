@@ -152,6 +152,12 @@ public class Command {
                 this.args = new String[1];
                 this.args[0] = parser.parse(s.split(" ", 2)[1]);
                 break;
+            case POKE:
+                parts = s.replace("\\s+", " ").split(" ", 2)[1].split(",");
+                this.args = new String[2];
+                this.args[0] = parser.parse(parts[0]);
+                this.args[1] = parser.parse(parts[1]);
+                break;
             default:
                 this.args = new String[parts.length - 1];
                 for(int i = 1; i < parts.length; i++){

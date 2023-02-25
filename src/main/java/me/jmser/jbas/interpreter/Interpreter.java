@@ -161,6 +161,21 @@ public class Interpreter
             case TAB:
                 iface.tab(Integer.parseInt(c.args[0]));
                 break;
+            case POKE:
+                int address = Integer.parseInt(c.args[0]);
+                if(address < (80*50) && address >= 0){
+                    // Screen memory
+                    int x = address % 80;
+                    int y = address / 80;
+
+                    int color = Integer.parseInt(c.args[1]);
+                    if(color < 0 || color > 15) break;
+                    iface.putPixel(x, y, color);
+                }
+                break;
+            case CLS:
+                iface.clear();
+                break;
             default:
                 iface.println("Unknown command or variable: " + c.args[0]);
                 break;

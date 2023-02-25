@@ -28,7 +28,7 @@ public class CLI implements JBasicInterface {
     }
 
     public void clear(){
-        System.console().flush();
+        System.out.print("\033[H\033[2J"); 
     }
 
     public void run(){
@@ -59,5 +59,9 @@ public class CLI implements JBasicInterface {
         }
         scanner.close();
 
+    }
+
+    public void putPixel(int x, int y, int color){
+        System.out.println("Graphics not supported in CLI mode");
     }
 }

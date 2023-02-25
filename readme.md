@@ -52,6 +52,10 @@ The following commands are supported:
 
 * `CLEAR` - clear the program
 
+* `CLS` - clear the console/screen
+
+* `POKE` - assign a value to a memory address (used for graphics)
+
 * `LIST` - list the program
 
 * `RUN` - run the program
@@ -251,6 +255,55 @@ Flags are another kind of special variable. They are primarily used by the `IF` 
 
 * `FLAG_EXIT` - The `EXIT` flag is set to 1 when the `EXIT` command is executed. When the `EXIT` flag is set to 1, either via the `EXIT` command or setting it manually, the program will exit. In program mode, FLAG_EXIT is set to 1 when the `EXIT` command is executed. In interactive mode, FLAG_EXIT is initially set to 1, and is set to 0 when the `RUN` command is executed.
 
+## Input and Output
+
+### Input
+
+The `INPUT` command is used to prompt the user for input. The `INPUT` command takes a variable name as its argument. The following example prompts the user for input and stores it in the `x` and prints it to the screen:
+
+```BASIC
+INPUT x
+PRINT x
+```
+### Output
+
+The `PRINT` command is used to print output to the screen. The `PRINT` command takes a string as its argument. The following example prints the string "Hello World!" to the screen:
+
+```BASIC
+PRINT "Hello World!"
+```
+
+You can also concatenate strings with either expressions or variables usingthe `+` operator:
+
+```BASIC
+PRINT "Hello " + "World!"
+LET x = 5
+PRINT "x = " + x
+```
+
+#### Graphics
+
+By using the `POKE` command, you can draw graphics to the screen. The `POKE` command takes two arguments: the address and the value separated by a comma. In the GUI version of the interpreter, addresses 0-3999 correspond to the pixels on the screen. The value is the color of the pixel. The following example draws a red 10x10 square to the screen:
+
+```BASIC
+00 CLS
+10 LET x = 35
+20 LET y = 15
+30 LET color = 2
+40 POKE (x + (y * 80)), color
+50 LET x = x + 1
+60 IF x < 45
+70 GOTO 40
+80 LET x = 35
+90 LET y = y + 1
+100 IF y < 25
+110 GOTO 40
+```
+
+Pixels are placed on top of the screen, such that the text is underneath the graphics. The `CLS` command clears the screen of both text and graphics. If you want to clear a single pixel, you can set its color to -1. 
+
+For a list of color, see the C64 Color Chart: [https://www.c64-wiki.com/wiki/Color\_Chart](https://www.c64-wiki.com/wiki/Color_Chart)
+
 ## Subroutines
 
 Using the `GOSUB` command, you can jump to a line number and return to next instruction when the `RETURN` command is executed. The `GOSUB` command takes a line number as its argument. The `RETURN` command does not take any arguments. Subroutines can also be nested. Here is an example of a subroutine that increments the `x` variable:
@@ -323,6 +376,8 @@ Later, we can load this program back into the interpreter:
 20 INPUT name
 30 PRINT "Hello " + name + "! It's nice to meet you."
 ```
+
+When loading a program, the interpreter will ignore any lines that do not begin with a line number. You can use this to add comments to your program, but beware as these comments will be ignored when the program is loaded and thus will not be printed when the `LIST` command is executed.
 
 ## Example Programs
 

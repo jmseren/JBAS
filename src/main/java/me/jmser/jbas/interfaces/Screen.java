@@ -7,6 +7,28 @@ import processing.core.PConstants;
 import processing.core.PFont;
 
 public class Screen extends PApplet {
+
+    private int[] pixels = new int[80 * 50]; // Pixels are 4x4 pixels in the window
+
+    private final int[] colors = { // Based on C64 palette
+        0xFF000000, // Black
+        0xFFFFFFFF, // White
+        0xFF880000, // Red
+        0xFFAAFFEE, // Cyan
+        0xFFCC44CC, // Purple
+        0xFF00CC55, // Green
+        0xFF0000AA, // Blue
+        0xFFEEEE77, // Yellow
+        0xFFDD8855, // Orange
+        0xFF664400, // Brown
+        0xFFFF7777, // Light Red
+        0xFF333333, // Dark Gray
+        0xFF777777, // Medium Gray
+        0xFFAAFF66, // Light Green
+        0xFF0088FF, // Light Blue
+        0xFFBBBBBB  // Light Gray
+    };
+
     private final char cursor = '\u2588';
 
     private int[] cursorPosition = {0, 0};
@@ -34,7 +56,7 @@ public class Screen extends PApplet {
 
     public Screen(GUI jbasic){
         this.jbasic = jbasic;
-        runSketch(new String[] { "JBas V1.1" }, this);
+        runSketch(new String[] { "JBas V1.1" }, this);        
     }
 
     public void settings(){
@@ -42,6 +64,10 @@ public class Screen extends PApplet {
        
         for(int i = 0; i < 25; i++){
             lines.add("");
+        }
+
+        for (int i = 0; i < pixels.length; i++) {
+            pixels[i] = -1;
         }
 
     }
@@ -57,6 +83,20 @@ public class Screen extends PApplet {
 
     private void printChar(char c, int x, int y){
         text(""+c, (x * (8 * size)), (y * (8 * size)) + (7 * size));
+    }
+
+    private void printPixels(){
+        push();
+        shapeMode(CORNER);
+        noStroke();
+        for(int i = 0; i < pixels.length; i++){
+            if(pixels[i] < 0 || pixels[i] > 15) continue;
+            int x = i % 80;
+            int y = i / 80;
+            fill(colors[pixels[i]]);
+            square(x * (4 * size), y * (4 * size), 4 * size);
+        }
+        pop();
     }
 
     private void nextLine(){
@@ -84,6 +124,7 @@ public class Screen extends PApplet {
                 printChar(lines.get(i).charAt(j), j, i);
             }
         }
+        printPixels();
         if(cursorOn) printChar(cursor, cursorPosition[0], cursorPosition[1]);
 
     }
@@ -158,10 +199,29 @@ public class Screen extends PApplet {
         cursorPosition[0] += str.length();
 
     }
+
+
     
 
     public void printlnStr(String str){
         printStr(str);
         nextLine();
+    }
+
+    public void putPixel(int x, int y, int color){
+        if(x < 0 || x >= 80 || y < 0 || y >= 25) return;
+        pixels[x + y * 80] = color;
+    }
+
+    public void clear(){
+        for(int i = 0; i < lines.size(); i++){
+            lines.set(i, "");
+        }
+        cursorPosition[0] = 0;
+        cursorPosition[1] = 0;
+
+        for(int i = 0; i < pixels.length; i++){
+            pixels[i] = -1;
+        }
     }
 }

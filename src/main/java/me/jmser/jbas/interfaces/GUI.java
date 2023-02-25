@@ -65,7 +65,7 @@ public class GUI implements JBasicInterface {
 
     @Override
     public void run(){
-        window.stroke(255);
+        window.noStroke();
         window.fill(255);
         while(true){
             if(inputMode) continue;
@@ -88,11 +88,13 @@ public class GUI implements JBasicInterface {
 
     }
 
-
-
-    @Override
-    public void clear() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'clear'");
+    public void putPixel(int x, int y, int color){
+        window.putPixel(x, y, color);
     }
+
+    public void clear() {
+        window.clear();
+    }
+
+    
 }
