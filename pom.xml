@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>me.jmser</groupId>
-  <artifactId>jbasic</artifactId>
-  <version>1.1</version>
+  <artifactId>jbas</artifactId>
+  <version>1.2</version>
 
   <name>jbasic</name>
   <!-- FIXME change it to the project's website -->
@@ -79,7 +79,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>me.jmser.jbas.JBas</mainClass>
+                <mainClass>me.jmser.jbas.JBAS</mainClass>
               </manifest>
             </archive>
             <descriptorRefs>
@@ -93,7 +93,7 @@
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.6.0</version>
           <configuration>
-            <mainClass>me.jmser.jbas.JBas</mainClass>
+            <mainClass>me.jmser.jbas.JBAS</mainClass>
           </configuration>
         </plugin>
       </plugins>

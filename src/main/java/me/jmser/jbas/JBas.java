@@ -2,7 +2,7 @@ package me.jmser.jbas;
 
 import me.jmser.jbas.interfaces.*;
 
-public class JBas {
+public class JBAS {
     public static void main(String[] args){
         JBasicInterface iface;
 
