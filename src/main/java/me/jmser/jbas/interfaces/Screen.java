@@ -195,8 +195,17 @@ public class Screen extends PApplet {
             return;
         }
         line = line.substring(0, cursorPosition[0]) + str + line.substring(cursorPosition[0], line.length());
-        lines.set(cursorPosition[1], line);
-        cursorPosition[0] += str.length();
+        // lines.set(cursorPosition[1], line);
+        // cursorPosition[0] += str.length();
+        if(line.length() > 40){
+            lines.set(cursorPosition[1], line.substring(0, 40));
+            cursorPosition[0] = 0;
+            nextLine();
+            printStr(line.substring(40, line.length()));
+        }else{
+            lines.set(cursorPosition[1], line);
+            cursorPosition[0] += str.length();
+        }
 
     }
 
