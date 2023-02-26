@@ -218,7 +218,7 @@ public class Screen extends PApplet {
     }
 
     public void putPixel(int x, int y, int color){
-        if(x < 0 || x >= 80 || y < 0 || y >= 25) return;
+        if(x < 0 || x >= 80 || y < 0 || y >= 50) return;
         pixels[x + y * 80] = color;
     }
 
