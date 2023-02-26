@@ -136,7 +136,11 @@ public class Screen extends PApplet {
 
         if(keyCode == PConstants.ENTER){
             synchronized(jbasic){
-                jbasic.line = lines.get(cursorPosition[1]);
+                String line = lines.get(cursorPosition[1]);
+                if(line.equals("")){
+                    line = " ";
+                }
+                jbasic.line = line;
             }
             nextLine();
         }else if(keyCode == PConstants.BACKSPACE){
