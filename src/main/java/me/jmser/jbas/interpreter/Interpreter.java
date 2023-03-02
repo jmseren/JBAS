@@ -28,6 +28,7 @@ public class Interpreter
 
     public Interpreter(){
         variableManager.setVariable("FLAG_EXIT", "1");
+        variableManager.setVariable("FLAG_THEN", "0");
     }
 
     public boolean interpret(String input){
@@ -112,6 +113,7 @@ public class Interpreter
                 }
                 break;
             case ELSE:
+                variableManager.setVariable("FLAG_THEN", "0");
                 if(variableManager.getVariable("FLAG_ELSE").equals("1")){
                     variableManager.setVariable("FLAG_ELSE", "0");
                     variableManager.setVariable("FLAG_SKIP", "0");
@@ -197,9 +199,9 @@ public class Interpreter
         while(true){
             if(variableManager.getVariable("FLAG_EXIT").equals("1")) break;
             if(lines.containsKey(instructionPointer)){
-                if(lines.get(instructionPointer).toUpperCase().matches("THEN.*") || lines.get(instructionPointer).toUpperCase().matches("ELSE.*")){
+                if(lines.get(instructionPointer).toUpperCase().matches("THEN.*")){
                     variableManager.setVariable("FLAG_THEN", "1");
-                }else if(lines.get(instructionPointer).toUpperCase().matches("ENDIF.*")){
+                }else if(lines.get(instructionPointer).toUpperCase().matches("ENDIF.*") || lines.get(instructionPointer).toUpperCase().matches("ELSE.*") || lines.get(instructionPointer).toUpperCase().matches("ENDELSE.*")){
                     variableManager.setVariable("FLAG_THEN", "0");
                 }
 

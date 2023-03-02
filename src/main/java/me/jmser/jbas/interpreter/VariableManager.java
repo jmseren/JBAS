@@ -112,6 +112,7 @@ public class VariableManager {
         setVariable("FLAG_ELSE", "0");
         setVariable("FLAG_SKIP", "0");
         setVariable("FLAG_EXIT", "0");
+        setVariable("FLAG_THEN", "0");
     }
 
     public int getVariableAsInt(String name){
