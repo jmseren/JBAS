@@ -25,6 +25,8 @@ public enum Commands {
     CLS,
     THEN,
     ENDIF,
+    IMP,
+    FUN,
     POKE;
 
     public static Commands fromString(String s){
@@ -32,11 +34,14 @@ public enum Commands {
         switch(s){
             case "PRINT":
                 return PRINT;
+            case "QUIT":
+            case "END":
             case "EXIT":
                 return EXIT;
             case "EVAL":
                 return EVAL;
             case "LET":
+            case "FUN":
                 return LET;
             case "LIST":
                 return LIST;
@@ -74,6 +79,8 @@ public enum Commands {
                 return CLS;
             case "THEN":
                 return THEN;
+            case "IMP":
+                return IMP;
             case "ENDIF":
             case "ENDELSE":
                 return ENDIF;

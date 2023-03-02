@@ -184,6 +184,49 @@ public class Interpreter
             case ENDIF:
                 variableManager.setVariable("FLAG_THEN", "0");
                 break;
+            case IMP:
+                // Import a file by appending it to the current file. 
+                // Runs the beginning of the file to set up variables, then 
+                // returns to the beginning of the current file.
+                
+                // Push the current instruction pointer onto the stack
+                variableManager.setVariable("ret", Integer.toString(instructionPointer));
+                variableManager.pushVariable("ret");
+                variableManager.pushVariable("FLAG_ELSE");
+                variableManager.pushVariable("FLAG_SKIP");
+
+                // Get the last line number of the current file, rounded up to the nearest 100 and adding 1000
+                int lastLine = lines.lastKey();
+                lastLine = ((lastLine / 100 + 1) * 100) + 1000;
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(c.args[0]));
+                    String line;
+                    while((line = reader.readLine()) != null){
+                        if(!line.matches("[0-9]+ .*")) continue; // Skip lines that don't start with a number.
+                        String[] parts = line.split(" ", 2);
+                        if(parts[1].trim().toUpperCase().startsWith("FUN")){
+                            // This is a function definition, so we have to change the line number
+                            // to be the last line number of the current file, plus the line number
+                            // of the function definition.
+
+                            // Get the line number of the function definition and add it to the last line number
+                            String funLineStr = parts[1].split("=", 2)[1].trim();
+                            int funLine = Integer.parseInt(funLineStr);
+                            funLine += lastLine;
+                            parts[1] = parts[1].replace(funLineStr, Integer.toString(funLine));
+
+                        }
+                        lines.put(lastLine + Integer.parseInt(parts[0]), parts[1]);
+                    }
+                    reader.close();
+
+                    // Set the instruction pointer to the beginning of the imported file
+                    instructionPointer = lastLine;
+
+                } catch (Exception e) {
+                    iface.println("Error loading file: " + e.getMessage());
+                }
+                break;
             default:
                 iface.println("Unknown command or variable: " + c.args[0]);
                 break;

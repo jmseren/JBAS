@@ -15,6 +15,7 @@ Included are two interfaces, one command line and one GUI. Both interfaces are f
 * [Input and Output](#input-and-output)
 * [Subroutines](#subroutines)
 * [Saving and Loading](#saving-and-loading)
+* [Modules](#modules)
 * [Examples](#example-programs)
 
 
@@ -84,7 +85,9 @@ The following commands are supported:
 
 * `LOAD` - load a program from a specified file
 
-* `EXIT` - exit the CLI or program
+* `IMP` - import a module
+
+* `EXIT` - exit the CLI or program, aliases include `QUIT` and `END`
 
 ## Expressions
 Expressions are strictly evaluated from left to right, and require parentheses for more than two operands. The following operators are supported:
@@ -413,6 +416,38 @@ Later, we can load this program back into the interpreter:
 ```
 
 When loading a program, the interpreter will ignore any lines that do not begin with a line number. You can use this to add comments to your program, but beware as these comments will be ignored when the program is loaded and thus will not be printed when the `LIST` command is executed.
+
+## Modules
+
+Modules are a way to organize your code into separate files. Modules can be imported into your program using the `IMP` command. The `IMP` command takes a filename as its argument. The module is immediately executed when it is imported, and the variables and functions defined in the module are available to the program. Multiple modules can be imported into a program, but the variables and functions defined in each module should have unique names.
+
+Here is a simple module that defines a function that returns the sum of two numbers held in variables `a` and `b`, returning the result in the variable `result`:
+
+```BASIC
+10 FUN sum = 100
+20 RETURN
+100 REM Sum Function
+110 LET result = a + b
+120 RETURN
+```
+
+Note there are a few peculiarities when writing a module. We **must** use the `FUN` keyword to define a function. This is so that the interpreter knows the value needs to be remapped when the module is imported. Additionally, note the return on line 20 that has no relative `GOSUB` command. This is because the `IMP` command acts as a `GOSUB` command when importing a module.
+
+Now, let's import this module into our program:
+
+```BASIC
+10 IMP sum.jbas
+20 LET a = 5
+30 LET b = 10
+40 GOSUB sum
+50 PRINT "a + b = " + result
+60 END
+```
+Which prints the following:
+`15`
+
+`END` is used here to prevent the module from executing again.
+
 
 ## Example Programs
 
