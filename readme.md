@@ -105,28 +105,34 @@ Expressions are strictly evaluated from left to right, and require parentheses f
 ```JavaScript
 5 + 5
 ```
+```
 10
+```
 
 
 
 ```JavaScript
 5 + (5 * 2)
 ```
+```
 15
+```
 
 
 
 ```JavaScript
 (5 + 5) * 2
 ```
+```
 20
+```
 
 
 
 ```JavaScript
 5 + 5 * 2
 ```
-Error
+```Error```
 
 In the future, precedence may be added to the language.
 
@@ -179,8 +185,9 @@ LET i = 5
 LET x[i] = 3
 PRINT x[5]
 ```
-
+```
 3
+```
 
 
 ## Control Flow
@@ -448,6 +455,28 @@ Which prints the following:
 
 `END` is used here to prevent the module from executing again.
 
+Modules can hold a variety of different functions, and can be shared across different programs. For example, here is the [card.jmod](examples/modules/card.jmod) module that contains functions for dealing with a standard deck of cards. This module can be imported into any program that needs to deal with cards.
+
+```BASIC
+00 REM Program that prints out 5 random cards from a deck
+10 IMP card.jmod
+20 GOSUB shuffle_deck
+30 LET i = 0
+40 LET i = i + 1
+50 GOSUB deal_card
+60 GOSUB print_card
+70 PRINT card_string
+90 IF i < 5
+100 GOTO 40
+110 END
+```
+```
+4 of Clubs 
+Ace of Spades 
+7 of Spades 
+3 of Clubs 
+Queen of Hearts 
+```
 
 ## Example Programs
 

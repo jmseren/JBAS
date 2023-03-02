@@ -1,0 +1,101 @@
+00 REM Card Module for JBAS v1.3
+01 REM Variable Definitions
+02 LET deck_size = 52
+03 LET cards_left = deck_size
+04 DIM deck 52
+
+50 REM Function Definitions
+51 FUN shuffle_deck = 100
+52 FUN deal_card = 200
+53 FUN print_card = 300
+54 FUN card_value = 400
+55 FUN card_suit = 500
+56 FUN card_name = 600
+57 FUN card_color = 700
+58 FUN set_fresh_deck = 800
+
+85 GOSUB set_fresh_deck
+90 RETURN
+
+100 REM shuffle_deck
+101 LET cards_left = deck_size
+105 LET i = 1
+110 LET index1 = rnd_deck_size
+120 LET index2 = rnd_deck_size
+130 LET temp = deck[index1]
+140 LET deck[index1] = deck[index2]
+150 LET deck[index2] = temp
+160 LET i = i + 1
+170 IF i <= 200
+180 GOTO 110
+190 RETURN
+
+200 REM deal_card
+201 LET cards_left = cards_left - 1
+202 LET card = deck[cards_left]
+203 RETURN
+
+300 REM print_card
+310 GOSUB card_name
+320 GOSUB card_suit
+330 GOSUB card_color
+340 LET card_string = "" + name + " of " + suit + ""
+350 RETURN
+
+400 REM card_value
+402 LET value = (card % 13) + 1
+403 IF value == 0
+404 LET value = 10
+405 IF value > 10
+406 LET value = 10
+407 RETURN
+
+500 REM card_suit
+510 LET suit = card / 13
+520 IF suit == 0
+530 LET suit = "Spades"
+540 IF suit == 1
+550 LET suit = "Hearts"
+560 IF suit == 2
+570 LET suit = "Clubs"
+580 IF suit == 3
+590 LET suit = "Diamonds"
+595 RETURN
+
+600 REM card_name
+610 LET value = (card % 13) + 1
+615 LET name = value
+625 IF value == 1
+630 LET name = "Ace"
+635 IF value == 11
+640 LET name = "Jack"
+645 IF value == 12
+650 LET name = "Queen"
+655 IF value == 13
+660 LET name = "King"
+665 RETURN
+
+700 REM card_color
+710 GOSUB card_suit
+720 IF suit == "Spades"
+730 LET color = "Black"
+740 IF suit == "Clubs"
+750 LET color = "Black"
+760 IF suit == "Hearts"
+770 LET color = "Red"
+780 IF suit == "Diamonds"
+790 LET color = "Red"
+795 RETURN
+
+800 REM set_fresh_deck
+810 LET i = 1
+820 LET deck[i] = i
+830 LET i = i + 1
+840 IF i <= deck_size
+850 GOTO 820
+860 RETURN
+
+
+
+
+
