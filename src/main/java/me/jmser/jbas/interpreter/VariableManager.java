@@ -27,6 +27,21 @@ public class VariableManager {
             Interpreter.instructionPointer = Integer.parseInt(value);
             return;
         }
+
+        if(value.matches(".*\\[.*\\]")){
+            // Array
+            String arrayName = value.substring(0, value.indexOf("["));
+            String index = value.substring(value.indexOf("[") + 1, value.lastIndexOf("]"));
+            try{
+                index = parser.parse(index);
+                if(variables.containsKey(arrayName + "[" + index + "]")){
+                    value = variables.get(arrayName + "[" + index + "]");
+                }
+            }catch(Exception e){
+                // Do nothing
+            }
+
+        }
         
         if(name.matches(".*\\[.*\\]")){
             // Array
@@ -109,6 +124,7 @@ public class VariableManager {
 
     public void clear(){
         variables.clear();
+        setVariable("import", "-1");
         setVariable("FLAG_ELSE", "0");
         setVariable("FLAG_SKIP", "0");
         setVariable("FLAG_EXIT", "0");

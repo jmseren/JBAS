@@ -31,7 +31,7 @@ public class ExpressionParser {
        
         // Remove all whitespace
         String parseString = expression.replaceAll("\\s+", ""); 
-        String[] splitString = parseString.split("(?=[-+*/()])|(?<=[-+*/()])");
+        String[] splitString = parseString.split("(?=[-+%*/()])|(?<=[-+%*/()])");
         
         // Tokenize the string
         Token[] tokens = new Token[splitString.length];

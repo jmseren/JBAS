@@ -195,9 +195,18 @@ public class Interpreter
                 variableManager.pushVariable("FLAG_ELSE");
                 variableManager.pushVariable("FLAG_SKIP");
 
+                
                 // Get the last line number of the current file, rounded up to the nearest 100 and adding 1000
                 int lastLine = lines.lastKey();
                 lastLine = ((lastLine / 100 + 1) * 100) + 1000;
+
+                // Set the import variable to the last line number (first line of the imported file)
+                // Used to clear the imported file from memory after execution
+                if(variableManager.getVariable("import").equals("-1")){
+                    variableManager.setVariable("import", Integer.toString(lastLine));
+                }
+
+
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(c.args[0]));
                     String line;
@@ -215,6 +224,12 @@ public class Interpreter
                             funLine += lastLine;
                             parts[1] = parts[1].replace(funLineStr, Integer.toString(funLine));
 
+                        }else if(parts[1].trim().toUpperCase().startsWith("GOTO")){
+                            // This is a goto statement, so we have to change the line number as well.
+                            String gotoLineStr = parts[1].split(" ", 2)[1].trim();
+                            int gotoLine = Integer.parseInt(gotoLineStr);
+                            gotoLine += lastLine;
+                            parts[1] = parts[1].replace(gotoLineStr, Integer.toString(gotoLine));
                         }
                         lines.put(lastLine + Integer.parseInt(parts[0]), parts[1]);
                     }
@@ -238,7 +253,7 @@ public class Interpreter
     public void run(){
         // Set flags and variables to default values
         variableManager.clear();
-
+        
         while(true){
             if(variableManager.getVariable("FLAG_EXIT").equals("1")) break;
             if(lines.containsKey(instructionPointer)){
@@ -264,6 +279,14 @@ public class Interpreter
             if(instructionPointer == lines.lastKey()) break;
             instructionPointer = lines.higherKey(instructionPointer);
         }
+        if(!variableManager.getVariable("import").equals("-1")){
+            // Clear the imported file from memory
+            int importLine = Integer.parseInt(variableManager.getVariable("import"));
+            while(lines.lastKey() >= importLine){
+                lines.remove(lines.lastKey());
+            }
+        }
+
 
         // variableManager.clear();
         variableManager.setVariable("FLAG_EXIT", "1");
