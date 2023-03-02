@@ -344,7 +344,7 @@ By using the `POKE` command, you can draw graphics to the screen. The `POKE` com
 100 IF y < 25
 110 GOTO 40
 ```
-
+[![](https://i.gyazo.com/5e4a9f4c79cc79f4aed2205d02176a81.gif)](https://gyazo.com/5e4a9f4c79cc79f4aed2205d02176a81)
 Pixels are placed on top of the screen, such that the text is underneath the graphics. The `CLS` command clears the screen of both text and graphics. If you want to clear a single pixel, you can set its color to -1. 
 
 For a list of colors, see the C64 Color Chart: [https://www.c64-wiki.com/wiki/Color\_Chart](https://www.c64-wiki.com/wiki/Color)
