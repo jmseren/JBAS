@@ -83,6 +83,8 @@ public class ExpressionTree {
                 return this.left.evaluate() * this.right.evaluate();
             case DIVIDE:
                 return this.left.evaluate() / this.right.evaluate();
+            case MODULO:
+                return this.left.evaluate() % this.right.evaluate();
             case NUMBER:
             case VARIABLE:
                 return this.value;

@@ -5,6 +5,7 @@ public enum TokenType {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
+    MODULO,
     NUMBER,
     VARIABLE,
     LEFT_PARENTHESIS,
@@ -20,6 +21,8 @@ public enum TokenType {
                 return MULTIPLY;
             case "/":
                 return DIVIDE;
+            case "%":
+                return MODULO;
             case "(":
                 return LEFT_PARENTHESIS;
             case ")":
@@ -43,6 +46,8 @@ public enum TokenType {
                 return "*";
             case DIVIDE:
                 return "/";
+            case MODULO:
+                return "%";
             case LEFT_PARENTHESIS:
                 return "(";
             case RIGHT_PARENTHESIS:
