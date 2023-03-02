@@ -8,6 +8,7 @@ public enum TokenType {
     MODULO,
     NUMBER,
     VARIABLE,
+    EXPONENT,
     LEFT_PARENTHESIS,
     RIGHT_PARENTHESIS;
 
@@ -23,6 +24,8 @@ public enum TokenType {
                 return DIVIDE;
             case "%":
                 return MODULO;
+            case "^":
+                return EXPONENT;
             case "(":
                 return LEFT_PARENTHESIS;
             case ")":
@@ -56,6 +59,8 @@ public enum TokenType {
                 return "NUMBER";
             case VARIABLE:
                 return "VARIABLE";
+            case EXPONENT:
+                return "^";
             default:
                 return "";
         }

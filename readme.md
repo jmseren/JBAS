@@ -100,6 +100,10 @@ Expressions are strictly evaluated from left to right, and require parentheses f
 
 * `/` - division
 
+* `^` - exponentiation
+
+* `%` - modulus
+
 ### Examples
 
 ```JavaScript
@@ -132,7 +136,9 @@ Expressions are strictly evaluated from left to right, and require parentheses f
 ```JavaScript
 5 + 5 * 2
 ```
-```Error```
+```
+Error
+```
 
 In the future, precedence may be added to the language.
 
