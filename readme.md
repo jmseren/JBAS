@@ -62,7 +62,13 @@ The following commands are supported:
 
 * `IF` - conditionally execute the next line
 
+* `THEN` - Execute all lines until the next ENDIF or ELSE (used after an `IF` or `ELSE`)
+
+* `ENDIF` - End an IF block
+
 * `ELSE` - conditionally execute the next line (after an `IF`)
+
+* `ENDELSE` - End an ELSE block (alias for `ENDIF`)
 
 * `CLEAR` - clear the program
 
@@ -202,7 +208,22 @@ You may find yourself wanting to execute a block of statements conditionally. Th
 
 Notice the lack of `ELSE` in the above example. This is because the `GOTO` command is used to jump to the next line after the `IF` statement. The `ELSE` statement is not necessary, but can be used to make the program more readable.
 
-If you prefer, `THEN` can be used in place of `GOTO`.
+Jumping to a line number is no the only way to execute a block of statements conditionally. The `THEN` command can be used to execute a block of statements until the next `ENDIF` or `ELSE` command:
+
+```BASIC
+10 LET x = 5
+20 LET y = 10
+30 IF x > y
+40 THEN
+50 PRINT "x is greater than y, incrementing x"
+60 LET x = x + 1
+70 ELSE 
+80 IF x < y
+90 THEN
+100 PRINT "x is less than y, incrementing y"
+110 LET y = y + 1
+120 ENDELSE
+```
 
 ### Loops
 

@@ -176,6 +176,12 @@ public class Interpreter
             case CLS:
                 iface.clear();
                 break;
+            case THEN:
+                variableManager.setVariable("FLAG_THEN", "1");
+                break;
+            case ENDIF:
+                variableManager.setVariable("FLAG_THEN", "0");
+                break;
             default:
                 iface.println("Unknown command or variable: " + c.args[0]);
                 break;
@@ -191,11 +197,19 @@ public class Interpreter
         while(true){
             if(variableManager.getVariable("FLAG_EXIT").equals("1")) break;
             if(lines.containsKey(instructionPointer)){
+                if(lines.get(instructionPointer).toUpperCase().matches("THEN.*") || lines.get(instructionPointer).toUpperCase().matches("ELSE.*")){
+                    variableManager.setVariable("FLAG_THEN", "1");
+                }else if(lines.get(instructionPointer).toUpperCase().matches("ENDIF.*")){
+                    variableManager.setVariable("FLAG_THEN", "0");
+                }
+
                 if(variableManager.getVariable("FLAG_SKIP").equals("1")){
-                    if(instructionPointer != lines.lastKey() && lines.get(instructionPointer).toUpperCase().matches("IF .*")){
-                        variableManager.setVariable("FLAG_SKIP", "1");
-                    }else{
-                        variableManager.setVariable("FLAG_SKIP", "0");
+                    if(!variableManager.getVariable("FLAG_THEN").equals("1")) {
+                        if(instructionPointer != lines.lastKey() && (lines.get(instructionPointer).toUpperCase().matches("IF .*"))){
+                            variableManager.setVariable("FLAG_SKIP", "1");
+                        }else{
+                            variableManager.setVariable("FLAG_SKIP", "0");
+                        }
                     }
                 }else{
                     interpret(lines.get(instructionPointer));

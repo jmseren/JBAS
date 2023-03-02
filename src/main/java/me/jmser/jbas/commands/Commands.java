@@ -23,6 +23,8 @@ public enum Commands {
     UNKNOWN, 
     TAB,
     CLS,
+    THEN,
+    ENDIF,
     POKE;
 
     public static Commands fromString(String s){
@@ -40,7 +42,6 @@ public enum Commands {
                 return LIST;
             case "RUN":
                 return RUN;
-            case "THEN":
             case "GOTO":
                 return GOTO;
             case "IF":
@@ -71,6 +72,11 @@ public enum Commands {
                 return POKE;
             case "CLS":
                 return CLS;
+            case "THEN":
+                return THEN;
+            case "ENDIF":
+            case "ENDELSE":
+                return ENDIF;
                 
             
             default:
