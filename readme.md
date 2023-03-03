@@ -90,7 +90,7 @@ The following commands are supported:
 * `EXIT` - exit the CLI or program, aliases include `QUIT` and `END`
 
 ## Expressions
-Expressions are strictly evaluated from left to right, and require parentheses for more than two operands. The following operators are supported:
+Expressions are evaluated using the standard order of operations. The following operators are supported:
 
 * `+` - addition
 
@@ -103,6 +103,8 @@ Expressions are strictly evaluated from left to right, and require parentheses f
 * `^` - exponentiation
 
 * `%` - modulus
+
+* `()` - grouping
 
 ### Examples
 
@@ -137,10 +139,14 @@ Expressions are strictly evaluated from left to right, and require parentheses f
 5 + 5 * 2
 ```
 ```
-Error
+15
 ```
 
-In the future, precedence may be added to the language.
+Operator precedence is as follows:
+* `^`
+* `*`, `/`, `%`
+* `+`, `-`
+
 
 ## Variables
 

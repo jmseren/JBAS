@@ -65,4 +65,20 @@ public enum TokenType {
                 return "";
         }
     }
+
+    public int getPrecedence(){
+        switch(this){
+            case ADD:
+            case SUBTRACT:
+                return 1;
+            case MULTIPLY:
+            case DIVIDE:
+            case MODULO:
+                return 2;
+            case EXPONENT:
+                return 3;
+            default:
+                return 0;
+        }
+    }
 }
