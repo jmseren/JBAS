@@ -29,8 +29,11 @@ public class ExpressionParser {
             expression = expression.trim();
             return expression.substring(1, expression.length() - 1);
         }
+
+        expression = expression.trim();
         
-        
+        String whollyParenthesized = "^\\((?:[^()]*|\\((?:[^()]*|\\([^()]*\\))*\\))*\\)$";
+        while(expression.matches(whollyParenthesized)) expression = expression.substring(1, expression.length() - 1);
         
         expression = parenthesize(expression);
         
@@ -91,7 +94,7 @@ public class ExpressionParser {
             }
         }
 
-        return (leftParenthesis == rightParenthesis && operators == leftParenthesis);
+        return (leftParenthesis == rightParenthesis && operators <= leftParenthesis);
         
 
 
@@ -130,6 +133,8 @@ public class ExpressionParser {
     }
 
    private static String parenthesize(String s){
+        
+
         // Fully parenthesize the expression
 
         // Split string at operators, but not inside parenthesis
@@ -138,16 +143,21 @@ public class ExpressionParser {
 
         String result = "";
 
+        // Are we already fully parenthesized?
+        if (isFulllyParenthesized(s))
+            return s;
+        
         for(int i = 0; i < splitString.length; i++){
             if(splitString[i].contains("(")){
                 if(isFulllyParenthesized(splitString[i])) result += splitString[i];
-                else result +=  "(" + parenthesize(splitString[i].substring(0, splitString[i].length() - 1)) + ")";
+                else result +=  "(" + parenthesize(splitString[i].substring(1, splitString[i].length() - 1)) + ")";
             }else{
                 result += splitString[i];
             }
         }
-        // Are we already fully parenthesized?
-        if(isFulllyParenthesized(result)) return result;
+        
+        if (isFulllyParenthesized(result))
+            return result;
 
         splitString = splitExpression(result);
 
