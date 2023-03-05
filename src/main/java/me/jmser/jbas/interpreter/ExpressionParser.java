@@ -32,8 +32,9 @@ public class ExpressionParser {
 
         expression = expression.trim();
         
-        String whollyParenthesized = "^\\((?:[^()]*|\\((?:[^()]*|\\([^()]*\\))*\\))*\\)$";
-        while(expression.matches(whollyParenthesized)) expression = expression.substring(1, expression.length() - 1);
+        // If it is wholely parenthesized, remove the parentheses
+        String wholelyParenthesized = "^\\((?:[^()]*|\\((?:[^()]*|\\([^()]*\\))*\\))*\\)$";
+        while(expression.matches(wholelyParenthesized)) expression = expression.substring(1, expression.length() - 1);
         
         expression = parenthesize(expression);
         
