@@ -1,2 +1,3 @@
-# Let *.jbas files use BASIC syntax highlighting
+# Let *.jbas and *.jmod files use BASIC syntax highlighting
 *.jbas linguist-language=BASIC
+*.jmod linguist-language=BASIC
