@@ -1,6 +1,6 @@
 # JBAS
 
-JBAS is a Java implementation of a BASIC programming dialect. It remains a work in progress, but is functional enough to serve as a useful tool for teaching programming concepts.
+JBAS is a Java implementation of a BASIC programming dialect. The language features many of the same commands and syntax as the original BASIC language, but with some additional features and changes.
 
 Included are two interfaces, one command line and one GUI. Both interfaces are fully functional, and can be used to run the same programs. The GUI interface is more user friendly, and is recommended for beginners. Additionally, the GUI interface is able to display graphics.
 
@@ -70,6 +70,8 @@ The following commands are supported:
 * `ELSE` - conditionally execute the next line (after an `IF`)
 
 * `ENDELSE` - End an ELSE block (alias for `ENDIF`)
+
+* `FOR...NEXT` - Execute a block of statements a specified number of times
 
 * `CLEAR` - clear the program
 
@@ -249,14 +251,25 @@ Jumping to a line number is no the only way to execute a block of statements con
 
 ### Loops
 
-The `GOTO` command can be used to create loops. The following example prints the numbers 1 through 10:
+The `FOR` and `NEXT` commands are used to execute a block of statements a specified number of times. The `FOR` command takes three arguments: the name of the loop variable, the starting value, and the ending value. The loop variable is incremented by 1 each time the loop is executed. The syntax for the `FOR` command is as follows:
 
 ```BASIC
-10 LET i = 1
-20 PRINT i
-30 LET i = i + 1
-40 IF i <= 10
-50 GOTO 20
+FOR i = 1 TO 10
+REM loop body
+NEXT i
+```
+Where `i` is the name of the loop variable, `1` is the starting value, and `10` is the ending value.
+
+`NEXT` is used to end a `FOR` loop. The `NEXT` command takes one argument: the name of the loop variable. The loop variable must be the same as the one used in the `FOR` command.
+
+For loops can be nested, but the loop variables must be unique:
+
+```BASIC
+FOR i = 1 TO 10
+FOR j = 1 TO 10
+PRINT i * j
+NEXT J
+NEXT I
 ```
 
 ## Special Variables
@@ -268,6 +281,8 @@ Special variables can be used in any place where a variable can be used, includi
 Pseudo-functions are special variables that return a value when they are used in an expression. They may not be assigned to by the user. The following pseudo-functions are available:
 
 * `time` - The current time in seconds.
+
+* `milli` - The current time in milliseconds.
 
 * `rnd_` - A random integer between 0 and the bound placed after the underscore. For example, `rnd_10` will return a random integer between 0 and 10.
 

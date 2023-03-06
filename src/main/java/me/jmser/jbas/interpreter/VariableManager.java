@@ -12,6 +12,8 @@ public class VariableManager {
     
     private static VariableManager instance;
 
+    private static long startTime = System.currentTimeMillis();
+
     public static VariableManager getInstance(){
         if(instance == null){
             instance = new VariableManager();
@@ -86,6 +88,9 @@ public class VariableManager {
         }else if(name.equals("time")){
             // Return the current time in seconds
             return Long.toString(System.currentTimeMillis() / 1000);
+        }else if(name.equals("milli")){
+            // Return the current time in milliseconds since the program started
+            return Long.toString(System.currentTimeMillis() - startTime);
         }else if(name.startsWith("neg_")){
             int value = Integer.parseInt(parser.parse(specialArgument));
             return Integer.toString(-value);
@@ -124,7 +129,9 @@ public class VariableManager {
 
     public void clear(){
         variables.clear();
+        setVariable("ret", "0");
         setVariable("import", "-1");
+        setVariable("FOR_TO", "0");
         setVariable("FLAG_ELSE", "0");
         setVariable("FLAG_SKIP", "0");
         setVariable("FLAG_EXIT", "0");

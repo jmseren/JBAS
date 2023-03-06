@@ -159,8 +159,20 @@ public class Command {
             case POKE:
                 parts = s.replace("\\s+", " ").split(" ", 2)[1].split(",");
                 this.args = new String[2];
-                this.args[0] = parser.parse(parts[0]);
-                this.args[1] = parser.parse(parts[1]);
+                this.args[0] = parser.parse(parts[0]); // Address
+                this.args[1] = parser.parse(parts[1]);  // Value
+                break;
+            case FOR:
+                parts = s.replace("\\s+", " ").split(" ", 2)[1].split("=");
+                this.args = new String[3];
+                this.args[0] = parts[0].trim(); // Variable name
+                this.args[1] = parser.parse(parts[1].split("TO")[0].trim()); // Start value
+                this.args[2] = parser.parse(parts[1].split("TO")[1].trim()); // End value
+                break;
+            case NEXT:
+                parts = s.replace("\\s+", " ").split(" ", 2);
+                this.args = new String[1];
+                this.args[0] = parts[1].trim(); // Variable name
                 break;
             default:
                 this.args = new String[parts.length - 1];

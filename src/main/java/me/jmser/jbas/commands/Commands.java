@@ -27,6 +27,8 @@ public enum Commands {
     ENDIF,
     IMP,
     FUN,
+    FOR,
+    NEXT,
     POKE;
 
     public static Commands fromString(String s){
@@ -81,6 +83,10 @@ public enum Commands {
                 return THEN;
             case "IMP":
                 return IMP;
+            case "FOR":
+                return FOR;
+            case "NEXT":
+                return NEXT;
             case "ENDIF":
             case "ENDELSE":
                 return ENDIF;

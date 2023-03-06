@@ -184,6 +184,28 @@ public class Interpreter
             case ENDIF:
                 variableManager.setVariable("FLAG_THEN", "0");
                 break;
+            case FOR:
+                variableManager.setVariable(c.args[0], c.args[1]);
+                variableManager.pushVariable("FLAG_ELSE");
+                variableManager.pushVariable("FLAG_SKIP");
+                variableManager.pushVariable("FOR_TO");
+                variableManager.pushVariable("ret");
+                variableManager.setVariable("ret", Integer.toString(instructionPointer + 1));
+                variableManager.setVariable("FOR_TO", c.args[2]);
+                break;
+            case NEXT:
+                int next = Integer.parseInt(variableManager.getVariable(c.args[0]));
+                next++;
+                variableManager.setVariable(c.args[0], Integer.toString(next));
+                if(next > Integer.parseInt(variableManager.getVariable("FOR_TO"))){
+                    variableManager.popVariable("ret");
+                    variableManager.popVariable("FOR_TO");
+                    variableManager.popVariable("FLAG_SKIP");
+                    variableManager.popVariable("FLAG_ELSE");
+                }else{
+                    instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
+                }
+                break;
             case IMP:
                 // Import a file by appending it to the current file. 
                 // Runs the beginning of the file to set up variables, then 
