@@ -74,17 +74,19 @@ public class Interpreter
                 instructionPointer = Integer.parseInt(c.args[0]) - 1;
                 break;
             case GOSUB:
-                variableManager.setVariable("ret", Integer.toString(instructionPointer));
                 variableManager.pushVariable("ret");
+                variableManager.setVariable("ret", Integer.toString(instructionPointer));
                 variableManager.pushVariable("FLAG_ELSE");
                 variableManager.pushVariable("FLAG_SKIP");
+                variableManager.pushVariable("FLAG_THEN");
                 instructionPointer = Integer.parseInt(c.args[0]) - 1;
                 break;
             case RETURN:
+                instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
                 variableManager.popVariable("ret");
                 variableManager.popVariable("FLAG_ELSE");
                 variableManager.popVariable("FLAG_SKIP");
-                instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
+                variableManager.popVariable("FLAG_THEN");
                 break;
             case IF:
                 switch(c.args[1]){
@@ -131,6 +133,7 @@ public class Interpreter
                 break;
             case CLEAR:
                 lines.clear();
+                variableManager.clear();
                 break;
             case LOAD:
                 lines.clear();
@@ -189,6 +192,7 @@ public class Interpreter
                 variableManager.pushVariable("FLAG_ELSE");
                 variableManager.pushVariable("FLAG_SKIP");
                 variableManager.pushVariable("FOR_TO");
+                variableManager.pushVariable("FLAG_THEN");
                 variableManager.pushVariable("ret");
                 variableManager.setVariable("ret", Integer.toString(instructionPointer + 1));
                 variableManager.setVariable("FOR_TO", c.args[2]);
@@ -200,11 +204,17 @@ public class Interpreter
                 if(next > Integer.parseInt(variableManager.getVariable("FOR_TO"))){
                     variableManager.popVariable("ret");
                     variableManager.popVariable("FOR_TO");
+                    variableManager.popVariable("FLAG_THEN");
                     variableManager.popVariable("FLAG_SKIP");
                     variableManager.popVariable("FLAG_ELSE");
+
                 }else{
                     instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
                 }
+                break;
+            case DUMP:
+                // Dump the contents of all variables to the screen
+                iface.println(variableManager.dump());
                 break;
             case IMP:
                 // Import a file by appending it to the current file. 
@@ -212,10 +222,12 @@ public class Interpreter
                 // returns to the beginning of the current file.
                 
                 // Push the current instruction pointer onto the stack
-                variableManager.setVariable("ret", Integer.toString(instructionPointer));
                 variableManager.pushVariable("ret");
+                variableManager.setVariable("ret", Integer.toString(instructionPointer));
                 variableManager.pushVariable("FLAG_ELSE");
                 variableManager.pushVariable("FLAG_SKIP");
+                variableManager.pushVariable("FLAG_THEN");
+
 
                 
                 // Get the last line number of the current file, rounded up to the nearest 100 and adding 1000

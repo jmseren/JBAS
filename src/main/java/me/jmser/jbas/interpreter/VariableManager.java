@@ -1,5 +1,7 @@
 package me.jmser.jbas.interpreter;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Stack;
 
@@ -22,6 +24,16 @@ public class VariableManager {
     }
 
     private VariableManager(){
+    }
+
+    public String dump(){
+        ArrayList<String> vars = new ArrayList<String>();
+        for(String key : variables.keySet()){
+            vars.add(key + " = " + variables.get(key));
+        }
+        Collections.sort(vars);  
+            
+        return String.join("\n", vars);
     }
 
     public void setVariable(String name, String value){

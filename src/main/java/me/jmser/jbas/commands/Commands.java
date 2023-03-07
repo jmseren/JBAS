@@ -29,6 +29,7 @@ public enum Commands {
     FUN,
     FOR,
     NEXT,
+    DUMP,
     POKE;
 
     public static Commands fromString(String s){
@@ -90,6 +91,8 @@ public enum Commands {
             case "ENDIF":
             case "ENDELSE":
                 return ENDIF;
+            case "DUMP":
+                return DUMP;
                 
             
             default:
