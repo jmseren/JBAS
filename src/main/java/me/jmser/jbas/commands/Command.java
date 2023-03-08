@@ -73,6 +73,11 @@ public class Command {
         this.command = Commands.fromString(parts[0].toUpperCase());
         switch(this.command){
             case PRINT:
+                if(s.equals("PRINT")){
+                    this.args = new String[1];
+                    args[0] = "";
+                    break;
+                }
                 String toParse = s.split(" ", 2)[1];
                 String result = parseString(toParse);
                 this.args = new String[1];
