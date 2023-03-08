@@ -1,6 +1,6 @@
 # JBAS
 
-JBAS is a Java implementation of a BASIC programming dialect. The language features many of the same commands and syntax as the original BASIC language, but with some additional features and changes.
+JBAS is a Java implementation of a BASIC programming dialect. The language features many of the same commands and syntax as the original BASIC language, but with some additional features and changes that reflect the modern state of programming languages.
 
 Included are two interfaces, one command line and one GUI. Both interfaces are fully functional, and can be used to run the same programs. The GUI interface is more user friendly, and is recommended for beginners. Additionally, the GUI interface is able to display graphics.
 
@@ -554,7 +554,7 @@ Queen of Hearts
 40 LET a = 1
 50 LET b = 1
 60 IF n <= 0
-61 THEN last
+61 GOTO last
 62 ELSE
 70 PRINT a
 80 LET c = a + b

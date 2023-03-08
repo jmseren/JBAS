@@ -4,7 +4,7 @@
 40 LET a = 1
 50 LET b = 1
 60 IF n <= 0
-61 THEN last
+61 GOTO last
 62 ELSE
 70 PRINT a
 80 LET c = a + b

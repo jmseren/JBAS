@@ -135,7 +135,7 @@ public class Interpreter
                 break;
             case INPUT:
                 String inputString = iface.getLine();
-                inputString = "\"" + inputString + "\"";
+                if(!inputString.matches("[0-9]+")) inputString = "\"" + inputString + "\"";
                 variableManager.setVariable(c.args[0], inputString);
                 break;
             case REM:
