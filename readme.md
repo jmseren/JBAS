@@ -91,6 +91,17 @@ The following commands are supported:
 
 * `EXIT` - exit the CLI or program, aliases include `QUIT` and `END`
 
+Commands are case insensitive. Multiple commands can be on the same line, separated by a semicolon:
+
+```BASIC
+PRINT "Hello World!"; PRINT "Goodbye World!"
+```
+```
+Hello World!
+Goodbye World!
+```
+
+
 ## Expressions
 Expressions are evaluated using the standard order of operations. The following operators are supported:
 

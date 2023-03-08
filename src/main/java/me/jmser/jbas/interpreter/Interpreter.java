@@ -32,7 +32,16 @@ public class Interpreter
     }
 
     public boolean interpret(String input){
-        if(input.trim().equals("")) return true;
+        input = input.trim();
+        if(input.equals("")) return true;
+        ArrayList<String> cmds = multiCommands(input);
+        if(cmds.size() > 1){
+            for(String cmd : cmds){
+                if(!interpret(cmd)) return false;
+            }
+            return true;
+        }
+
         Command c = new Command(input);
         switch(c.command){
             case PRINT:
@@ -325,6 +334,29 @@ public class Interpreter
         // variableManager.clear();
         variableManager.setVariable("FLAG_EXIT", "1");
     }
+
+    private ArrayList<String> multiCommands(String line){
+        boolean inQuotes = false;
+
+        ArrayList<String> commands = new ArrayList<String>();
+
+        String command = "";
+
+        for(int i = 0; i < line.length(); i++){
+            if(line.charAt(i) == '"'){
+                inQuotes = !inQuotes;
+            }else if(line.charAt(i) == ';' && !inQuotes){
+                commands.add(command);
+                command = "";
+                continue;
+            }
+            command += line.charAt(i);
+        }
+        
+        commands.add(command);
+        return commands;
+    }
+
 
     public static int findNextLine(){
         int nextLine = lines.higherKey(Interpreter.instructionPointer);
