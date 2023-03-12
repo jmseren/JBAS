@@ -3,6 +3,7 @@ package me.jmser.jbas.interpreter;
 import java.util.*;
 
 import me.jmser.jbas.commands.Command;
+import me.jmser.jbas.commands.LibraryManager;
 import me.jmser.jbas.interfaces.JBasicInterface;
 
 import java.io.*;
@@ -23,7 +24,7 @@ public class Interpreter
 
     public void hook(JBasicInterface i){
         this.iface = i;
-        iface.println("\nJBAS 1.3 (c) 2023 JMSER\n\n");
+        iface.println("\nJBAS 2.0 (c) 2023 JMSER\n\n");
     }
 
     public Interpreter(){
@@ -225,6 +226,14 @@ public class Interpreter
                 // Dump the contents of all variables to the screen
                 iface.println(variableManager.dump());
                 break;
+            case LIB:
+                // Load a library file (*.jlib)
+                // Libraries are nothing more than a JSON file with a list of commands, and an
+                // accompanying executable file. These are packaged together in a .jlib file.
+                // The executable file is loaded into memory, and the commands are added to the
+                // command list.
+                LibraryManager.load(c.args[0]);
+                break;
             case IMP:
                 // Import a file by appending it to the current file. 
                 // Runs the beginning of the file to set up variables, then 
@@ -256,12 +265,12 @@ public class Interpreter
                     while((line = reader.readLine()) != null){
                         if(!line.matches("[0-9]+ .*")) continue; // Skip lines that don't start with a number.
                         String[] parts = line.split(" ", 2);
-                        if(parts[1].trim().toUpperCase().startsWith("FUN")){
-                            // This is a function definition, so we have to change the line number
+                        if(parts[1].trim().toUpperCase().startsWith("DEF") || parts[1].trim().toUpperCase().startsWith("FUN") ){ // "FUN" is deprecated, and will be removed in a future version. Use "DEF" instead.
+                            // This is a subroutine definition, so we have to change the line number
                             // to be the last line number of the current file, plus the line number
-                            // of the function definition.
+                            // of the subroutine definition.
 
-                            // Get the line number of the function definition and add it to the last line number
+                            // Get the line number of the subroutine definition and add it to the last line number
                             String funLineStr = parts[1].split("=", 2)[1].trim();
                             int funLine = Integer.parseInt(funLineStr);
                             funLine += lastLine;

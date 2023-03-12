@@ -13,6 +13,8 @@ public class Command {
         boolean inString = false;
         boolean inMath = true;
 
+        boolean softBreak = true;
+
         String current = "";
         String result = "";
 
@@ -24,7 +26,8 @@ public class Command {
                         inString = false;
                         result += current;
                         current = "";
-                    } else if (inMath) {
+                    } else if(inMath && softBreak) {
+
                         inMath = false;
                         inString = true;
 
@@ -38,23 +41,28 @@ public class Command {
                             current = "";
                         }
 
+                    } else if (inMath) {
+                        current += c;
                     } else {
                         inString = true;
                     }
                     break;
                 case ' ':
-                    if (inString) {
+                    if (inString || inMath) {
                         current += c;
                     }
                     break;
                 case '+':
                     if (inString || inMath) {
                         current += c;
+                        softBreak = true;
                     } else {
                         inMath = true;
+                        softBreak = false;
                     }
                     break;
                 default:
+                    softBreak = false;
                     current += c;
                     break;
             }
@@ -73,7 +81,7 @@ public class Command {
         this.command = Commands.fromString(parts[0].toUpperCase());
         switch(this.command){
             case PRINT:
-                if(s.equals("PRINT")){
+                if(s.toUpperCase().equals("PRINT")){
                     this.args = new String[1];
                     args[0] = "";
                     break;
@@ -178,6 +186,11 @@ public class Command {
                 parts = s.replace("\\s+", " ").split(" ", 2);
                 this.args = new String[1];
                 this.args[0] = parts[1].trim(); // Variable name
+                break;
+            case LIB:
+                parts = s.replace("\\s+", " ").split(" ", 2);
+                this.args = new String[1];
+                this.args[0] = parts[1].trim(); // Library name
                 break;
             default:
                 this.args = new String[parts.length - 1];

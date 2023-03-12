@@ -2,7 +2,7 @@
 
 JBAS is a Java implementation of a BASIC programming dialect. The language features many of the same commands and syntax as the original BASIC language, but with some additional features and changes that reflect the modern state of programming languages.
 
-Included are two interfaces, one command line and one GUI. Both interfaces are fully functional, and can be used to run the same programs. The GUI interface is more user friendly, and is recommended for beginners. Additionally, the GUI interface is able to display graphics.
+Included are two interfaces, one command line and one GUI. Both interfaces are fully functional, and can be used to run the most of the same programs. The GUI interface is more user friendly, and is recommended for beginners. Additionally, the GUI interface is able to display graphics, which is not possible in the CLI interface.
 
 ## Table of Contents
 
@@ -11,11 +11,12 @@ Included are two interfaces, one command line and one GUI. Both interfaces are f
 * [Expressions](#expressions)
 * [Variables](#variables)
 * [Control Flow](#control-flow)
-* [Special Variables](#special-variables)
+* [Standard Library](#standard-library)
 * [Input and Output](#input-and-output)
 * [Subroutines](#subroutines)
 * [Saving and Loading](#saving-and-loading)
 * [Modules](#modules)
+* [Libraries](#libraries)
 * [Examples](#example-programs)
 
 
@@ -45,7 +46,7 @@ The following commands are supported:
 
 * `PRINT` - print a value to the console
 
-* `TAB` - move the cursor to a specified column
+* `TAB` - move the cursor to a specified column (also available as a function in the form `TAB(x)` for compatibility with the original BASIC language)
 
 * `REM` - add a comment
 
@@ -283,25 +284,25 @@ NEXT J
 NEXT I
 ```
 
-## Special Variables
+## Standard Library
 
-Special variables can be used in any place where a variable can be used, including in expressions. 
+The standard library is a collection of functions and variables that are available to the user by default. The standard library is built into the interpreter, and does not need to be imported. 
 
-### Pseudo-Functions
+### Functions
 
-Pseudo-functions are special variables that return a value when they are used in an expression. They may not be assigned to by the user. The following pseudo-functions are available:
+The following functions are available in the standard library:
 
 * `time` - The current time in seconds.
 
 * `milli` - The current time in milliseconds.
 
-* `rnd_` - A random integer between 0 and the bound placed after the underscore. For example, `rnd_10` will return a random integer between 0 and 10.
+* `rnd` - A random integer between 0 and the bound specified as an argument. For example, `rnd(10)` will return a random integer between 0 and 10.
 
-* `neg_` - The negative of the value placed after the underscore. For example, `neg_5` will return -5.
+* `neg` - The negative of the value passed as an argument. For example, `neg(5)` will return -5.
 
-* `abs_` - The absolute value of the value placed after the underscore. For example, `abs_-5` will return 5.
+* `abs` - The absolute value of the value passed as an argument. For example, `abs(-5)` will return 5.
 
-* `sqrt_` - The square root of the value placed after the underscore. For example, `sqrt_25` will return 5.
+* `sqrt` - The square root of the value passed as an argument. For example, `sqrt(25)` will return 5.
 
 ### Intepreter Variables
 
@@ -392,9 +393,9 @@ For a list of colors, see the C64 Color Chart: [https://www.c64-wiki.com/wiki/Co
 Using the `GOSUB` command, you can jump to a line number and return to next instruction when the `RETURN` command is executed. The `GOSUB` command takes a line number as its argument. The `RETURN` command does not take any arguments. Subroutines can also be nested. Here is an example of a subroutine that increments the `x` variable:
 
 ```BASIC
-0 REM Program to demonstrate the use of subroutines as functions
+0 REM Program to demonstrate the use of subroutines
 10 LET x = 1
-20 REM Function Definitions
+20 REM Subroutine Definitions
 21 LET func_incr_x = 100
 30 REM Program Body
 40 GOSUB func_incr_x
@@ -411,7 +412,7 @@ Additionally, here is an example of a subroutine uses nested subroutines:
 ```BASIC
 0 REM Program to take an input, increment it by 1 and then multiply it by 2.
 10 LET x = 1
-20 REM Function Definitions
+20 REM Subroutine Definitions
 21 LET func_incr_x = 100
 22 LET func_mult2_x = 200
 23 LET func_mult2_incr_x = 300
@@ -464,19 +465,19 @@ When loading a program, the interpreter will ignore any lines that do not begin 
 
 ## Modules
 
-Modules are a way to organize your code into separate files. Modules can be imported into your program using the `IMP` command. The `IMP` command takes a filename as its argument. The module is immediately executed when it is imported, and the variables and functions defined in the module are available to the program. Multiple modules can be imported into a program, but the variables and functions defined in each module should have unique names.
+Modules are a way to organize your code into separate files. Modules can be imported into your program using the `IMP` command. The `IMP` command takes a filename as its argument. The module is immediately executed when it is imported, and the variables and subroutines defined in the module are available to the program. Multiple modules can be imported into a program, but the variables and subroutines defined in each module should have unique names.
 
-Here is a simple module that defines a function that returns the sum of two numbers held in variables `a` and `b`, returning the result in the variable `result`:
+Here is a simple module that defines a subroutine that returns the sum of two numbers held in variables `a` and `b`, returning the result in the variable `result`:
 
 ```BASIC
-10 FUN sum = 100
+10 DEF sum = 100
 20 RETURN
-100 REM Sum Function
+100 REM Sum Subroutine
 110 LET result = a + b
 120 RETURN
 ```
 
-Note there are a few peculiarities when writing a module. We **must** use the `FUN` keyword to define a function. This is so that the interpreter knows the value needs to be remapped when the module is imported. Additionally, note the return on line 20 that has no relative `GOSUB` command. This is because the `IMP` command acts as a `GOSUB` command when importing a module.
+Note there are a few peculiarities when writing a module. We **must** use the `DEF` keyword to define a subroutine. This is so that the interpreter knows the value needs to be remapped when the module is imported. Additionally, note the return on line 20 that has no relative `GOSUB` command. This is because the `IMP` command acts as a `GOSUB` command when importing a module.
 
 Now, let's import this module into our program:
 
@@ -493,7 +494,7 @@ Which prints the following:
 
 `END` is used here to prevent the module from executing again.
 
-Modules can hold a variety of different functions, and can be shared across different programs. For example, here is the [card.jmod](examples/modules/card.jmod) module that contains functions for dealing with a standard deck of cards. This module can be imported into any program that needs to deal with cards.
+Modules can hold a variety of different subroutines, and can be shared across different programs. For example, here is the [card.jmod](examples/modules/card.jmod) module that contains subroutines for dealing with a standard deck of cards. This module can be imported into any program that needs to deal with cards.
 
 ```BASIC
 00 REM Program that prints out 5 random cards from a deck
@@ -516,13 +517,64 @@ Ace of Spades
 Queen of Hearts 
 ```
 
+## Libraries
+
+Unlike modules, libraries are not written in JBAS. Instead, they are written in another language, and then compiled into a library file that can be imported into a JBAS program. The structure of a library is as follows:
+
+* 10kb of data reserved for the library information (in JSON format)
+* Executable code
+
+The library information is used to map the functions in the library to the functions in the JBAS program. Given a binary that has two functions, `hello` and `goodbye` that each take a string as an argument, the library information could look like this:
+
+```JSON
+{
+    "name": "Hello World Library",
+    "id": "helloworld", 
+    "version": "1.0",
+    "author": "JMSER",
+    "description": "A simple library that prints out hello and goodbye messages.",
+    "prefix": "",
+    "flags": "", 
+    "functions": [
+        {
+            "name": "hello",
+            "description": "Prints out a hello message.",
+            "return": "string",
+            "args": [
+                "string"
+            ]
+        },
+        {
+            "name": "goodbye",
+            "description": "Prints out a goodbye message.",
+            "return": "string",
+            "args": [
+                "string"
+            ]
+        }
+    ]
+}
+```
+
+The interpreter will unpack the executable, and call the binary with the function name and arguments as command line arguments. The binary will then return the result of the function to the interpreter.
+
+```BASIC
+10 LIB helloworld.jlib
+20 PRINT hello("John")
+```
+```
+Hello, John!
+```
+
+
+
 ## Example Programs
 
 ### Number Guessing Game
 
 ```BASIC
 10 PRINT "Guessing Game!"
-20 LET n = rnd_100
+20 LET n = rnd(100)
 30 LET num = 1
 40 PRINT "Guess a number (0-100): "
 50 INPUT g

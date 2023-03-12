@@ -26,10 +26,12 @@ public enum Commands {
     THEN,
     ENDIF,
     IMP,
-    FUN,
+    FUN, // Deprecated
+    DEF,
     FOR,
     NEXT,
     DUMP,
+    LIB,
     POKE;
 
     public static Commands fromString(String s){
@@ -45,6 +47,7 @@ public enum Commands {
                 return EVAL;
             case "LET":
             case "FUN":
+            case "DEF":
                 return LET;
             case "LIST":
                 return LIST;
@@ -88,6 +91,8 @@ public enum Commands {
                 return FOR;
             case "NEXT":
                 return NEXT;
+            case "LIB":
+                return LIB;
             case "ENDIF":
             case "ENDELSE":
                 return ENDIF;

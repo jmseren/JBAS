@@ -1,6 +1,10 @@
 package me.jmser.jbas.interpreter;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import me.jmser.jbas.commands.LibraryManager;
 
 public class ExpressionParser {
     private static ExpressionParser instance;
@@ -20,17 +24,55 @@ public class ExpressionParser {
 
     public String parse(String expression){
         if(expression.equals("")) return "";
-        if(variableManager.getVariable(expression.trim()) != null && variableManager.getVariable(expression.trim()).contains("\"")){
-            String value = variableManager.getVariable(expression.trim());
+        String value = variableManager.getVariable(expression.trim());
+        if(value != null && value.contains("\"")){
             if(value.equals("")) return "";
             value = value.substring(1, value.length() - 1);
             return value;
-        }else if(expression.contains("\"")){
+        }else if(expression.matches("\".*\"")){
             expression = expression.trim();
             return expression.substring(1, expression.length() - 1);
         }
 
         expression = expression.trim();
+        
+        // Find any function and replace it with its value
+        String functionRegex = "[A-z1-9]+\\([^\\)]*\\)"; // Matches a function of the form "functionName(argument1, argument2, ...)"
+        Pattern functionPattern = Pattern.compile(functionRegex, Pattern.CASE_INSENSITIVE);
+        Matcher functionMatcher = functionPattern.matcher(expression);
+        while(functionMatcher.find()){
+            String function = functionMatcher.group();
+            String functionName = function.substring(0, function.indexOf("("));
+            String functionArguments = function.substring(function.indexOf("(") + 1, function.lastIndexOf(")"));
+            String[] arguments = functionArguments.split(",");
+            for(int i = 0; i < arguments.length; i++){
+                arguments[i] = parse(arguments[i]);
+            }
+
+            // Check if the function is part of the built-in library
+            if(variableManager.isStandard(functionName)){
+                String functionValue = variableManager.getStandard(functionName, arguments);
+                expression = expression.replace(function, functionValue);
+                if(functionValue.equals("")) return "";
+                if(functionValue.contains("\"")){
+                    functionValue = functionValue.substring(1, functionValue.length() - 1);
+                    return functionValue;
+                }
+            }
+
+
+
+            String functionValue = LibraryManager.exec(functionName, arguments);
+            expression = expression.replace(function, functionValue);
+            if(functionValue.equals("")) return "";
+            if(functionValue.contains("\"")){
+                functionValue = functionValue.substring(1, functionValue.length() - 1);
+                return functionValue;
+            }
+        }
+
+
+
         
         // If it is wholely parenthesized, remove the parentheses
         String wholelyParenthesized = "^\\((?:[^()]*|\\((?:[^()]*|\\([^()]*\\))*\\))*\\)$";

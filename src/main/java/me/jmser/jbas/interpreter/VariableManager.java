@@ -5,7 +5,21 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Stack;
 
+import me.jmser.jbas.commands.LibraryManager;
+
 public class VariableManager {
+    private static final String[] standard = {
+        "line",
+        "time",
+        "milli",
+        "rnd",
+        "neg",
+        "abs",
+        "sqrt",
+        "TAB"
+    };
+
+
     private static ExpressionParser parser = ExpressionParser.getInstance();
     
     private static Hashtable<String, String> variables = new Hashtable<String, String>();
@@ -90,39 +104,19 @@ public class VariableManager {
         if(name.matches(".*\\[.*\\]")){
             specialArgument = name.substring(name.indexOf("[") + 1, name.lastIndexOf("]"));
             arrayName = name.substring(0, name.indexOf("["));
-        }else if(name.contains("_")){
-            specialArgument = name.substring(name.indexOf("_") + 1);
         }
 
-        if(name.startsWith("rnd_")){
-            int max = Integer.parseInt(parser.parse(specialArgument));
-            return Integer.toString((int)(Math.random() * max));
-        }else if(name.equals("time")){
-            // Return the current time in seconds
-            return Long.toString(System.currentTimeMillis() / 1000);
-        }else if(name.equals("milli")){
-            // Return the current time in milliseconds since the program started
-            return Long.toString(System.currentTimeMillis() - startTime);
-        }else if(name.startsWith("neg_")){
-            int value = Integer.parseInt(parser.parse(specialArgument));
-            return Integer.toString(-value);
-        }else if(name.startsWith("abs_")){
-            int value = Integer.parseInt(parser.parse(specialArgument));
-            return Integer.toString(Math.abs(value));
-        }else if(name.startsWith("sqrt_")){
-            int value = Integer.parseInt(parser.parse(specialArgument));
-            return Long.toString(Math.round(Math.sqrt(value)));
-        }else if(name.equals("line")){
+        if (name.equals("line")) {
             return Integer.toString(Interpreter.instructionPointer);
-        }else if(name.equals("next")){
+        } else if (name.equals("next")) {
             return Integer.toString(Interpreter.findNextLine());
-        }else if(name.equals("prev")){
+        } else if (name.equals("prev")) {
             return Integer.toString(Interpreter.findPrevLine());
-        }else if(name.equals("first")){
+        } else if (name.equals("first")) {
             return Integer.toString(Interpreter.findFirstLine());
-        }else if(name.equals("last")){
+        } else if (name.equals("last")) {
             return Integer.toString(Interpreter.findLastLine());
-        }else if(name.equals("count")){
+        } else if (name.equals("count")) {
             return Integer.toString(Interpreter.lineCount());
         }else if(variables.containsKey(arrayName + "[0]")){
             // Array
@@ -134,6 +128,20 @@ public class VariableManager {
                 // Do nothing
             }
         }
+        // else if(LibraryManager.functionExists(name.split("_")[0])){
+        //     // External function
+        //     String[] args = specialArgument.equals("") ? new String[0] : specialArgument.split("_");
+            
+            
+            
+        //     String result = LibraryManager.exec(name.split("_")[0], args);
+
+        //     try {
+        //         return Integer.toString(Integer.parseInt(result));
+        //     } catch (NumberFormatException e) {
+        //         return "\"" + result + "\"";
+        //     }
+        // }
 
 
         return variables.get(name);
@@ -148,6 +156,10 @@ public class VariableManager {
         setVariable("FLAG_SKIP", "0");
         setVariable("FLAG_EXIT", "0");
         setVariable("FLAG_THEN", "0");
+
+        variableStack.clear();
+
+        LibraryManager.clear();
     }
 
     public int getVariableAsInt(String name){
@@ -173,6 +185,47 @@ public class VariableManager {
             variableStack.put(name, new Stack<String>());
         }
         return variableStack.get(name).peek();
+    }
+
+
+    public boolean isStandard(String name){
+        for(String s : standard){
+            if(s.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String getStandard(String name, String[] args){
+        if (name.equals("rnd")) {
+            int max = Integer.parseInt(parser.parse(args[0]));
+            return Integer.toString((int) (Math.random() * max));
+        } else if (name.equals("time")) {
+            // Return the current time in seconds
+            return Long.toString(System.currentTimeMillis() / 1000);
+        } else if (name.equals("milli")) {
+            // Return the current time in milliseconds since the program started
+            return Long.toString(System.currentTimeMillis() - startTime);
+        } else if (name.equals("neg")) {
+            int value = Integer.parseInt(parser.parse(args[0]));
+            return Integer.toString(-value);
+        } else if (name.equals("abs")) {
+            int value = Integer.parseInt(parser.parse(args[0]));
+            return Integer.toString(Math.abs(value));
+        } else if (name.equals("sqrt")) {
+            int value = Integer.parseInt(parser.parse(args[0]));
+            return Long.toString(Math.round(Math.sqrt(value)));
+        } else if (name.equals("TAB")){
+            int value = Integer.parseInt(parser.parse(args[0]));
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < value; i++){
+                sb.append(" ");
+            }
+            return "\"" + sb + "\"";
+
+        }
+        return "";
     }
     
 }
