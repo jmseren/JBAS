@@ -1,18 +1,18 @@
-00 REM Card Module for JBAS v1.3
+00 REM Card Module for JBAS v2.0
 01 REM Variable Definitions
 02 LET deck_size = 52
 03 LET cards_left = deck_size
 04 DIM deck 52
 
 50 REM Function Definitions
-51 FUN shuffle_deck = 100
-52 FUN deal_card = 200
-53 FUN print_card = 300
-54 FUN card_value = 400
-55 FUN card_suit = 500
-56 FUN card_name = 600
-57 FUN card_color = 700
-58 FUN set_fresh_deck = 800
+51 DEF shuffle_deck = 100
+52 DEF deal_card = 200
+53 DEF print_card = 300
+54 DEF card_value = 400
+55 DEF card_suit = 500
+56 DEF card_name = 600
+57 DEF card_color = 700
+58 DEF set_fresh_deck = 800
 
 85 GOSUB set_fresh_deck
 90 RETURN
@@ -20,8 +20,8 @@
 100 REM shuffle_deck
 101 LET cards_left = deck_size
 105 LET i = 1
-110 LET index1 = rnd_deck_size
-120 LET index2 = rnd_deck_size
+110 LET index1 = rnd(deck_size)
+120 LET index2 = rnd(deck_size)
 130 LET temp = deck[index1]
 140 LET deck[index1] = deck[index2]
 150 LET deck[index2] = temp

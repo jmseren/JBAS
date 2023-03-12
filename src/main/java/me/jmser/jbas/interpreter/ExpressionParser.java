@@ -71,7 +71,10 @@ public class ExpressionParser {
             }
         }
 
-
+        if (expression.contains("\"")) {
+            expression = expression.substring(1, expression.length() - 1);
+            return expression;
+        }
 
         
         // If it is wholely parenthesized, remove the parentheses
