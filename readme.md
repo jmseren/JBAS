@@ -7,7 +7,7 @@ Included are two interfaces, one command line and one GUI. Both interfaces are f
 ## Table of Contents
 
 * [Compiling](#compiling)
-* [Commands](#commands)
+* [Commands](#basic-commands)
 * [Expressions](#expressions)
 * [Variables](#variables)
 * [Control Flow](#control-flow)
@@ -15,6 +15,7 @@ Included are two interfaces, one command line and one GUI. Both interfaces are f
 * [Input and Output](#input-and-output)
 * [Subroutines](#subroutines)
 * [Saving and Loading](#saving-and-loading)
+* [Additional Commands](#additional-commands)
 * [Modules](#modules)
 * [Libraries](#libraries)
 * [Examples](#example-programs)
@@ -40,7 +41,7 @@ To run the program with the GUI interface, run the following command:
 java -jar target/jbas-[version].jar --gui
 ```
 
-## Commands
+## Basic Commands
 
 The following commands are supported:
 
@@ -70,15 +71,11 @@ The following commands are supported:
 
 * `ELSE` - conditionally execute the next line (after an `IF`)
 
-* `ENDELSE` - End an ELSE block (alias for `ENDIF`)
-
 * `FOR...NEXT` - Execute a block of statements a specified number of times
 
 * `CLEAR` - clear the program
 
 * `CLS` - clear the console/screen
-
-* `POKE` - assign a value to a memory address (used for graphics)
 
 * `LIST` - list the program
 
@@ -87,8 +84,6 @@ The following commands are supported:
 * `SAVE` - save the program to a specified file
 
 * `LOAD` - load a program from a specified file
-
-* `IMP` - import a module
 
 * `EXIT` - exit the CLI or program, aliases include `QUIT` and `END`
 
@@ -462,6 +457,16 @@ Later, we can load this program back into the interpreter:
 ```
 
 When loading a program, the interpreter will ignore any lines that do not begin with a line number. You can use this to add comments to your program, but beware as these comments will be ignored when the program is loaded and thus will not be printed when the `LIST` command is executed.
+
+## Additional Commands
+
+### `DUMP`
+
+The `DUMP` command is used to dump the contents of the interpreter's variables in alphabetical order to the screen. The `DUMP` command takes no arguments. 
+
+### `PUSH` and `POP`
+
+The `PUSH` and `POP` commands are used to push and pop variables from the stack. The `PUSH` command takes a variable name as its argument. The `POP` command takes a variable name as its argument. This is useful for saving and restoring variables.
 
 ## Modules
 

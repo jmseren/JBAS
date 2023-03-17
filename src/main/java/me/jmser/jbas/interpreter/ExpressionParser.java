@@ -58,17 +58,21 @@ public class ExpressionParser {
                     functionValue = functionValue.substring(1, functionValue.length() - 1);
                     return functionValue;
                 }
+                
+            }else{
+                String functionValue = LibraryManager.exec(functionName, arguments);
+                expression = expression.replace(function, functionValue);
+                if (functionValue.equals(""))
+                    return "";
+                if (functionValue.contains("\"")) {
+                    functionValue = functionValue.substring(1, functionValue.length() - 1);
+                    return functionValue;
+                }
             }
 
 
 
-            String functionValue = LibraryManager.exec(functionName, arguments);
-            expression = expression.replace(function, functionValue);
-            if(functionValue.equals("")) return "";
-            if(functionValue.contains("\"")){
-                functionValue = functionValue.substring(1, functionValue.length() - 1);
-                return functionValue;
-            }
+
         }
 
         if (expression.contains("\"")) {

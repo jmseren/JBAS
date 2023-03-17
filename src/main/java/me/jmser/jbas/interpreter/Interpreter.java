@@ -222,6 +222,14 @@ public class Interpreter
                     instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
                 }
                 break;
+            case PUSH:
+                // Push a variable onto the stack
+                variableManager.pushVariable(c.args[0]);
+                break;
+            case POP:
+                // Pop a variable off the stack
+                variableManager.popVariable(c.args[0]);
+                break;
             case DUMP:
                 // Dump the contents of all variables to the screen
                 iface.println(variableManager.dump());

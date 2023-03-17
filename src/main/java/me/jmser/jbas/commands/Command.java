@@ -149,8 +149,11 @@ public class Command {
                 this.args = new String[1];
                 this.args[0] = parts[1].replace("\\s+", "");
                 break;
+            case PUSH:
+            case POP:
             case LOAD:
             case SAVE:
+                // One argument, no spaces allowed
                 parts = s.split(" ", 2);
                 this.args = new String[1];
                 this.args[0] = parts[1].replace("\\s+", "");   

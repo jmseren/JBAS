@@ -32,6 +32,8 @@ public enum Commands {
     NEXT,
     DUMP,
     LIB,
+    PUSH,
+    POP,
     POKE;
 
     public static Commands fromString(String s){
@@ -98,6 +100,10 @@ public enum Commands {
                 return ENDIF;
             case "DUMP":
                 return DUMP;
+            case "PUSH":
+                return PUSH;
+            case "POP": 
+                return POP;
                 
             
             default:
