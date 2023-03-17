@@ -63,6 +63,7 @@ public class Interpreter
             case EXIT:
                 if(variableManager.getVariable("FLAG_EXIT").equals("1")) return false;
                 variableManager.setVariable("FLAG_EXIT", "1");
+                LibraryManager.clear();
                 break;
             case LIST:
                 for(Integer i : lines.keySet()){
