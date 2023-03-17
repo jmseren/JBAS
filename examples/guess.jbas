@@ -1,5 +1,5 @@
 10 PRINT "Guessing Game!"
-20 LET n = rnd_100
+20 LET n = rnd(100)
 30 LET num = 1
 40 PRINT "Guess a number (0-100): "
 50 INPUT g

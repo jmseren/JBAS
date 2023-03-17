@@ -1,6 +1,6 @@
 0 REM Rock Paper Scissors Game
 2 REM AUTHOR: JMSER
-3 REM JBasic 1.0
+3 REM JBasic 2.0
 
 4 REM Function Declarations
 5 LET PRINT_CHOICES = 600
@@ -12,7 +12,7 @@
 21 PRINT "Rock, Paper, or Scissors? (1/2/3)"
 30 INPUT p
 
-40 LET g = rnd_2 + 1
+40 LET g = rnd(2) + 1
 
 50 GOSUB PRINT_CHOICES
 
