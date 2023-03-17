@@ -285,7 +285,7 @@ public class Interpreter
                             funLine += lastLine;
                             parts[1] = parts[1].replace(funLineStr, Integer.toString(funLine));
 
-                        }else if(parts[1].trim().toUpperCase().startsWith("GOTO")){
+                        }else if(parts[1].trim().toUpperCase().startsWith("GOTO") || parts[1].trim().toUpperCase().startsWith("GORET")){
                             // This is a goto statement, so we have to change the line number as well.
                             String gotoLineStr = parts[1].split(" ", 2)[1].trim();
                             int gotoLine = Integer.parseInt(gotoLineStr);

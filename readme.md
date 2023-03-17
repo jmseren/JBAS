@@ -468,6 +468,10 @@ The `DUMP` command is used to dump the contents of the interpreter's variables i
 
 The `PUSH` and `POP` commands are used to push and pop variables from the stack. The `PUSH` command takes a variable name as its argument. The `POP` command takes a variable name as its argument. This is useful for saving and restoring variables.
 
+### `GORET`
+
+The `GORET` command is an alias for the `GOTO` command and only differs semantically. It is used in place of the `GOSUB` command when you do not want to return to the next instruction after the subroutine is executed.
+
 ## Modules
 
 Modules are a way to organize your code into separate files. Modules can be imported into your program using the `IMP` command. The `IMP` command takes a filename as its argument. The module is immediately executed when it is imported, and the variables and subroutines defined in the module are available to the program. Multiple modules can be imported into a program, but the variables and subroutines defined in each module should have unique names.
