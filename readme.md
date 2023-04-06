@@ -528,53 +528,30 @@ Queen of Hearts
 
 ## Libraries
 
-Unlike modules, libraries are not written in JBAS. Instead, they are written in another language, and then compiled into a library file that can be imported into a JBAS program. The structure of a library is as follows:
+Unlike modules, libraries are not written in JBAS. Instead, they are written in another language, and then compiled into a library file that can be imported into a JBAS program. 
 
-* 10kb of data reserved for the library information (in JSON format)
-* Executable code
+To import a library, use the `LIB` command. The `LIB` command takes a filename as its argument. The library file is scanned for all the functions it contains, and these functions are made available to the program.
 
-The library information is used to map the functions in the library to the functions in the JBAS program. Given a binary that has two functions, `hello` and `goodbye` that each take a string as an argument, the library information could look like this:
+### Example
 
-```JSON
-{
-    "name": "Hello World Library",
-    "id": "helloworld", 
-    "version": "1.0",
-    "author": "JMSER",
-    "description": "A simple library that prints out hello and goodbye messages.",
-    "prefix": "",
-    "flags": "", 
-    "functions": [
-        {
-            "name": "hello",
-            "description": "Prints out a hello message.",
-            "return": "string",
-            "args": [
-                "string"
-            ]
-        },
-        {
-            "name": "goodbye",
-            "description": "Prints out a goodbye message.",
-            "return": "string",
-            "args": [
-                "string"
-            ]
-        }
-    ]
-}
-```
-
-The interpreter will unpack the executable, and call the binary with the function name and arguments as command line arguments. The binary will then return the result of the function to the interpreter.
+Suppose we have the following library file, [math.jlib](libraries/math.jlib), which defines mathematical functions for floating point numbers. We can import this library into our program like so:
 
 ```BASIC
-10 LIB helloworld.jlib
-20 PRINT hello("John")
-```
-```
-Hello, John!
+10 LIB math.jlib
 ```
 
+Now, we can use functions defined in the library like `floor`:
+
+```BASIC
+20 LET x = "35.13"
+30 LET y = floor(x)
+40 PRINT y
+```
+```
+35
+```
+
+You can find more information about libraries [here](libraries/libraries.md).
 
 
 ## Example Programs
