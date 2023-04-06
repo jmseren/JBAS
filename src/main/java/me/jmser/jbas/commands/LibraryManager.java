@@ -57,12 +57,16 @@ public class LibraryManager {
         if (library == null) {
             return "Library not found.";
         }
-
-        String[] command = new String[args.length + 2];
-        command[0] = library.executablePath;
-        command[1] = function;
+        String[] prefixes = library.prefix.split(" ");
+        String[] command = new String[args.length + 2 + prefixes.length];
+        for (int i = 0; i < prefixes.length; i++) {
+            command[i] = prefixes[i];
+        }
+        
+        command[prefixes.length] = library.executablePath;
+        command[prefixes.length+1] = function;
         for (int i = 0; i < args.length; i++) {
-            command[i + 2] = args[i];
+            command[i + 2 + prefixes.length] = args[i];
         }
         String line = "";
         try {
@@ -77,7 +81,7 @@ public class LibraryManager {
 
         // Check the functions return type, if its a string add quotes
         String returnType = library.getFunction(function).returnType;
-        if (returnType.equals("string")) {
+        if (returnType.equals("string") || returnType.equals("double")) {
             return "\"" + line + "\"";
         }
 
@@ -151,7 +155,7 @@ public class LibraryManager {
             String returnType = functionJson.getString("return");
             String[] argTypes = new String[args.length()];
             for (int j = 0; j < args.length(); j++) {
-                argTypes[j] = args.getString(j);
+                argTypes[j] = args.getJSONObject(j).getString("type");
             }
 
             lib.addFunction(new Function(name, argTypes, returnType, id));
