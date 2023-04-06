@@ -103,7 +103,9 @@ public class Command {
                     try{ // This is hacky
                         Integer.parseInt(this.args[1]);
                     }catch(Exception e){
-                        this.args[1] = "\"" + this.args[1] + "\"";
+                        if(!this.args[1].contains("@")){
+                            this.args[1] = "\"" + this.args[1] + "\"";
+                        }
                     }
                 }
                 break;

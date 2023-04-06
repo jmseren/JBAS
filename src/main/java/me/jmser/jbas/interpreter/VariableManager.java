@@ -55,8 +55,8 @@ public class VariableManager {
             Interpreter.instructionPointer = Integer.parseInt(value);
             return;
         }
-
-        if(value.matches(".*\\[.*\\]")){
+        
+        if((!value.matches("(Array@).*")) && value.matches(".*\\[.*\\]")){
             // Array
             String arrayName = value.substring(0, value.indexOf("["));
             String index = value.substring(value.indexOf("[") + 1, value.lastIndexOf("]"));
@@ -65,10 +65,20 @@ public class VariableManager {
                 if(variables.containsKey(arrayName + "[" + index + "]")){
                     value = variables.get(arrayName + "[" + index + "]");
                 }
+                return;
             }catch(Exception e){
                 // Do nothing
             }
 
+        }else if(value.startsWith("Array@")){
+            // Copy array from another array
+            String arrayName = value.substring(value.indexOf("@") + 1, value.indexOf("["));
+            String size = value.substring(value.indexOf("[") + 1, value.lastIndexOf("]"));
+            createArray("y", Integer.parseInt(size));
+            for(int i = 0; i < Integer.parseInt(size); i++){
+                variables.put(name + "[" + i + "]", variables.get(arrayName + "[" + i + "]"));
+            }
+            return;
         }
         
         if(name.matches(".*\\[.*\\]")){
@@ -91,6 +101,7 @@ public class VariableManager {
     }
 
     public void createArray(String name, int size){
+        variables.put(name, "Array@" + name + "[" + size + "]");
         for(int i = 0; i < size; i++){
             variables.put(name + "[" + i + "]", "0");
         }
@@ -101,9 +112,11 @@ public class VariableManager {
         // Special variables
         String specialArgument = "";
         String arrayName = "";
+        boolean isArray = false;
         if(name.matches(".*\\[.*\\]")){
             specialArgument = name.substring(name.indexOf("[") + 1, name.lastIndexOf("]"));
             arrayName = name.substring(0, name.indexOf("["));
+            isArray = true;
         }
 
         if (name.equals("line")) {
@@ -118,7 +131,7 @@ public class VariableManager {
             return Integer.toString(Interpreter.findLastLine());
         } else if (name.equals("count")) {
             return Integer.toString(Interpreter.lineCount());
-        }else if(variables.containsKey(arrayName + "[0]")){
+        }else if(variables.containsKey(arrayName + "[0]") && isArray){
             // Array
             String index = specialArgument;
             try{

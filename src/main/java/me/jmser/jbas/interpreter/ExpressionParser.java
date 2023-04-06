@@ -32,8 +32,9 @@ public class ExpressionParser {
         }else if(expression.matches("\".*\"")){
             expression = expression.trim();
             return expression.substring(1, expression.length() - 1);
+        }else if(value != null && value.contains("@")){
+            return value;
         }
-
         expression = expression.trim();
         
         // Find any function and replace it with its value
