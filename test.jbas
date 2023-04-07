@@ -1,0 +1,11 @@
+10 let x = 5
+20 print x
+25 let b = 6
+26 print b
+30 GOSUB 100
+40 print x
+45 print b
+50 end
+100 let y = x + 1
+105 let z = 1423
+110 RETURN

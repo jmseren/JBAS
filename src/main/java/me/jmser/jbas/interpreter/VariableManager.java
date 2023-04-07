@@ -19,6 +19,7 @@ public class VariableManager {
         "TAB"
     };
 
+    
 
     private static ExpressionParser parser = ExpressionParser.getInstance();
     
@@ -162,6 +163,7 @@ public class VariableManager {
 
     public void clear(){
         variables.clear();
+        setVariable("sb_links", "");
         setVariable("ret", "0");
         setVariable("import", "-1");
         setVariable("FOR_TO", "0");

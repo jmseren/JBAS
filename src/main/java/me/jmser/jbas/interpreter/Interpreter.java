@@ -24,7 +24,7 @@ public class Interpreter
 
     public void hook(JBasicInterface i){
         this.iface = i;
-        iface.println("\nJBAS 2.0 (c) 2023 JMSER\n\n");
+        iface.println("\nJBAS 2.1 (c) 2023 JMSER\n\n");
     }
 
     public Interpreter(){
@@ -86,6 +86,8 @@ public class Interpreter
                 break;
             case GOSUB:
                 variableManager.pushVariable("ret");
+                variableManager.pushVariable("sb_links");
+                variableManager.setVariable("sb_links", c.args[1]);
                 variableManager.setVariable("ret", Integer.toString(instructionPointer));
                 variableManager.pushVariable("FLAG_ELSE");
                 variableManager.pushVariable("FLAG_SKIP");
@@ -98,6 +100,18 @@ public class Interpreter
                 variableManager.popVariable("FLAG_ELSE");
                 variableManager.popVariable("FLAG_SKIP");
                 variableManager.popVariable("FLAG_THEN");
+
+                // Linking variables
+                String links = variableManager.getVariable("sb_links");
+                if(links.length() > 4){
+                    links = links.substring(1, links.length() - 1).replaceAll("\\s+", "");
+                    String[] linkArray = links.split(",");
+                    for(String link : linkArray){
+                        String[] vars = link.split("=");
+                        variableManager.setVariable(vars[0], variableManager.getVariable(vars[1]));
+                    }
+                }
+                variableManager.popVariable("sb_links");
                 break;
             case IF:
                 switch(c.args[1]){

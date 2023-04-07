@@ -112,9 +112,10 @@ public class Command {
             case GORET:
             case GOTO:
             case GOSUB:
-                parts = s.split(" ", 2);
-                this.args = new String[1];
+                parts = s.replace("\\s+", " ").split(" ", 3);
+                this.args = new String[2];
                 this.args[0] = parser.parse(parts[1].replace("\\s+", ""));
+                this.args[1] = (parts.length > 2) ? parts[2].replace("\\s+", "") : "";
                 break;
             case IF:
                 parts = s.split(" ", 2);
