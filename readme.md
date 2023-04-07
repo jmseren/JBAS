@@ -402,30 +402,31 @@ Using the `GOSUB` command, you can jump to a line number and return to next inst
 130 PRINT "x = " + x
 ```
 
-Additionally, here is an example of a subroutine uses nested subroutines:
+### Variable linking
+
+Usually when calling a subrouting, you want to pass in some arguments and get some results back. You can do this by linking variables to the subroutine. When a subroutine is called, you can specify a list of variables to link to the subroutine. Any variables that are linked to the subroutine will be updated before and after the subroutine is executed. 
 
 ```BASIC
-0 REM Program to take an input, increment it by 1 and then multiply it by 2.
+0 REM Program to demonstrate variable linking
 10 LET x = 1
-20 REM Subroutine Definitions
-21 LET func_incr_x = 100
-22 LET func_mult2_x = 200
-23 LET func_mult2_incr_x = 300
-30 REM Program Body
-40 GOSUB func_mult2_incr_x
-50 GOTO last
-100 REM func_incr_x
-101 LET x = x + 1
-110 RETURN
-200 REM func_mult2_x
-201 LET x = x * 2
-210 RETURN
-300 REM func_mult2_incr_x
-301 GOSUB func_incr_x
-302 GOSUB func_mult2_x
-303 RETURN
-310 REM End of Program
-320 PRINT "x = " + x
+20 LET y = 2
+25 LET answer = 0
+30 REM Subroutine Definitions
+31 LET func_add = 100
+40 REM Program Body
+50 GOSUB func_add (arg1=x, arg2=y, answer=z)
+60 PRINT x + " + " + y + " = " + answer
+70 END
+
+100 REM func_add
+101 LET z = arg1 + arg2
+110 LET arg1 = 0
+120 LET arg2 = 0
+130 RETURN
+```
+```
+=> RUN
+1 + 2 = 3
 ```
 
 ## Saving/Loading Programs

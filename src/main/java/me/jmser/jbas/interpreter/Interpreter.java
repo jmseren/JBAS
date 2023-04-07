@@ -93,6 +93,19 @@ public class Interpreter
                 variableManager.pushVariable("FLAG_SKIP");
                 variableManager.pushVariable("FLAG_THEN");
                 instructionPointer = Integer.parseInt(c.args[0]) - 1;
+
+                String links = variableManager.getVariable("sb_links");
+                if (links.length() > 4) {
+                    links = links.substring(1, links.length() - 1).replaceAll("\\s+", "");
+                    String[] linkArray = links.split(",");
+                    for (String link : linkArray) {
+                        String[] vars = link.split("=");
+                        // If the variable doesn't exist, it will be a return value
+                        if(variableManager.getVariable(vars[1]) == null) continue;
+                        variableManager.setVariable(vars[0], variableManager.getVariable(vars[1]));
+                    }
+                }
+
                 break;
             case RETURN:
                 instructionPointer = Integer.parseInt(variableManager.getVariable("ret"));
@@ -102,7 +115,7 @@ public class Interpreter
                 variableManager.popVariable("FLAG_THEN");
 
                 // Linking variables
-                String links = variableManager.getVariable("sb_links");
+                links = variableManager.getVariable("sb_links");
                 if(links.length() > 4){
                     links = links.substring(1, links.length() - 1).replaceAll("\\s+", "");
                     String[] linkArray = links.split(",");

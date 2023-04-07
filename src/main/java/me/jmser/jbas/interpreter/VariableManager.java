@@ -182,6 +182,9 @@ public class VariableManager {
     }
 
     public void pushVariable(String name){
+        if(!variables.containsKey(name)){
+            setVariable(name, "");
+        }
         if(!variableStack.containsKey(name)){
             variableStack.put(name, new Stack<String>());
         }
@@ -189,6 +192,9 @@ public class VariableManager {
     }
 
     public void popVariable(String name){
+        if (!variables.containsKey(name)) {
+            return;
+        }
         if(!variableStack.containsKey(name)){
             variableStack.put(name, new Stack<String>());
         }
